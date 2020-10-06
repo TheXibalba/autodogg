@@ -1,0 +1,58 @@
+<%- include("header.ejs") %>
+
+<div class="signup-form jumbotron bg-dark d-flex justify-content-center w-25 ml-auto mr-auto mt-3 pb-4 pt-5">
+
+<form action="/signup" method="post" class="w-100 pt-0">
+
+<div class="form-group">
+<input type="text" class="form-control" name="nameOfTheUser" id="nameOfTheUser" placeholder="Enter Your Name" required>
+
+</div>
+<div class="form-group">
+<input type="email" class="form-control" name="emailOfTheUser" id="emailOfTheUser" placeholder="Enter Your Email" required>
+
+</div>
+<div class="form-group">
+<input type="password" class="form-control" name="passwordOfTheUser" id="passwordOfTheUser" placeholder="Password" required>
+
+</div>
+<div class="form-group">
+<input type="password" class="form-control" name="rePasswordOfTheUser" id="rePasswordOfTheUser" placeholder="Re-enter Password" required>
+
+
+</div>
+
+
+
+
+<div class="form-group"> 
+
+    <select class="dropdown form-control rounded-top" name="idTypeOfTheUser" required>
+       
+        
+          <option class="dropdown-item " value="UID" >Aadhar</option>
+          <option class="dropdown-item " value="license">Driving License</option>
+          
+       
+    </select>
+
+<input type="text" class="form-control  rounded-bottom" name="idValue" id="idValue" placeholder="Last Four Characters" required>
+
+</div>
+
+
+
+<div class="form-group d-flex justify-content-center">
+
+    <input class="btn btn-outline-success btn-md w-100"  type="submit" value="Sign Up!" name="submit" id="submit">
+</div>
+
+</form>
+
+
+
+
+</div>
+
+
+<%- include("footer.ejs") %>

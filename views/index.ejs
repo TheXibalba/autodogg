@@ -11,8 +11,18 @@
     </div>
     <div class="bg-transparent col-lg-12 booking-and-assist d-flex justify-content-center pt-2 pb-4">
        
-        <button type="button" class="btn btn-lg btn-success m-2">Book a Slot Now!</button>
-       <button type="button" class="btn btn-lg btn-warning m-2">On Site Assistance!</button>
+        <%if((authenticationIndicator==="TRUE") ){%>
+
+          
+            <a  class="btn btn-lg btn-success m-2" href="/book">Book Your Slot Now!</a>
+            
+            <%}else{%>
+                <a  class="btn btn-lg btn-success m-2" href="/login">Book a Slot Now!</a>
+
+            <%}%>
+
+        
+       <a  class="btn btn-lg btn-warning m-2" href="/assistance">On Site Assistance!</a>
      
 </div>
    

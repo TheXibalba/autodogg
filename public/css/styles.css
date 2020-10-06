@@ -12,7 +12,7 @@ background-size: cover;
 .brand {
     height: 65px;
     width: 65px;
-    margin-right: 31.5rem;
+   /*  margin-right: 31.5rem; */
     border-radius: 10px;
 }
 /* 
@@ -60,4 +60,9 @@ background-size: cover;
     background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     opacity: 0.9;
 
+}
+
+.signup-form, .login-form{
+    opacity: 0.8;
+  
 }
