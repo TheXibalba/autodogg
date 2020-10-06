@@ -1,0 +1,63 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+
+}
+body{
+background-image: url("../img/background.jpg");
+background-size: cover;
+}
+.brand {
+    height: 65px;
+    width: 65px;
+    margin-right: 31.5rem;
+    border-radius: 10px;
+}
+/* 
+.brand:hover{
+    
+    animation-name: animatebrand;
+    animation-duration: 0.5s ;
+    animation-iteration-count: infinite;
+    animation-fill-mode: backwards;
+}
+ */
+@keyframes animatebrand{
+    from{
+        transform:scale(100%);
+    }to{
+        transform:scale(120%);
+    }
+}
+
+.navbar{
+    background: #000000;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    opacity: 0.9;
+}
+.car-brands{
+    background: #485563;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #29323c, #485563);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #29323c, #485563); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    opacity: 0.95;
+}
+.car-brands img{
+    border-radius: 5px;
+}
+
+.car-brands img:hover{
+    transition: transform 0.3s ease-in-out;
+    transform: scale(115%);
+    cursor: pointer;
+}
+
+.footer{
+    background: #000000;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    opacity: 0.9;
+
+}
