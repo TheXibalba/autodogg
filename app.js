@@ -111,6 +111,8 @@ app.post("/login",(req, res) => {
 
 
          userModel.findOne({ email: emailOfTheUser }, (err, data) => {
+         setTimeout(()=>{
+
             if (data.password === passwordOfTheUser) {
                 console.log("Password matched!");
 
@@ -135,6 +137,10 @@ app.post("/login",(req, res) => {
         });
 
 
+
+
+
+         },3000)  
 
     });
 
