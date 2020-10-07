@@ -1,6 +1,7 @@
 const express=require("express");
 const ejs=require("ejs");
 const connection=require("./public/db.js");
+const connectionLocal=require("./public/dbLocal.js");
 const generateUserSchema=require("./public/generateUserSchema");
 const generateUserModel=require("./public/generateUserModel");
 const saveNewUser=require("./public/saveNewUser");
@@ -19,7 +20,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 
  //Connect to the Database!
- connection();
+ connectionLocal();
 
  //Generate the user schema for signing up the users
  const userSchema=generateUserSchema();

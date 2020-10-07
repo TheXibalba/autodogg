@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
 
         const authCodeFromCookie = (req.headers.cookie.split(";")[0]).split("=")[1];
         /* console.log(authCodeFromCookie); */
-  
+  console.log("Auth Middleware has run!");
         jwt.verify(authCodeFromCookie, process.env.COOKIE_SECRET);
         req.authenticated = "TRUE";
         next();
