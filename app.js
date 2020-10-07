@@ -100,14 +100,14 @@ app.get("/login",(req,res)=>{
     });
 });
 
-app.post("/login",async (req, res) => {
+app.post("/login",(req, res) => {
 
         const body = req.body;
 
         const emailOfTheUser = body.emailOfTheUser;
         const passwordOfTheUser = body.passwordOfTheUser;
 
-        await userModel.findOne({ email: emailOfTheUser }, (err, data) => {
+         userModel.find({ email: emailOfTheUser }, (err, data) => {
             if (data.password === passwordOfTheUser) {
                 console.log("Password matched!");
 
