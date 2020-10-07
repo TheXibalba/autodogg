@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 
  //Connect to the Database!
- connection();
+ connectionLocal();
 
  //Generate the user schema for signing up the users
  const userSchema=generateUserSchema();
@@ -107,7 +107,7 @@ app.post("/login",(req, res) => {
         const emailOfTheUser = body.emailOfTheUser;
         const passwordOfTheUser = body.passwordOfTheUser;
 
-         userModel.find({ email: emailOfTheUser }, (err, data) => {
+         userModel.findOne({ email: emailOfTheUser }, (err, data) => {
             if (data.password === passwordOfTheUser) {
                 console.log("Password matched!");
 
