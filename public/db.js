@@ -4,7 +4,8 @@ const connection=()=>{
     
 mongoose.connect("mongodb+srv://admin-yuvraj:Y2U4V6R8@cluster0.ia2jk.mongodb.net/autodogg?retryWrites=true&w=majority",
      {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
    
 },(err)=>{
     if(!err){
