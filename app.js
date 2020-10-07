@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 
  //Connect to the Database!
- connectionLocal();
+ connection();
 
  //Generate the user schema for signing up the users
  const userSchema=generateUserSchema();
