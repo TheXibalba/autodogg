@@ -125,8 +125,9 @@ app.post("/login",(req, res) => {
                 });
                 res.cookie("authCookie", token, {
                     httpOnly: true
-                }).redirect("/");
+                });
 
+                res.redirect("/");
 
 
             } else {
