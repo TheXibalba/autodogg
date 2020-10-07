@@ -105,7 +105,7 @@ app.post("/login",(req,res)=>{
 
     const emailOfTheUser=body.emailOfTheUser;
     const passwordOfTheUser=body.passwordOfTheUser;
-
+/* 
     userModel.findOne({email:emailOfTheUser},(err,data)=>{
         if(data.password===passwordOfTheUser){
             console.log("Password matched!");
@@ -130,9 +130,9 @@ app.post("/login",(req,res)=>{
         }
     });
 
+ */
 
-
-
+res.redirect("/");
 
 
     
