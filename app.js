@@ -100,44 +100,44 @@ app.get("/login",(req,res)=>{
     });
 });
 
-app.post("/login",(req,res)=>{
-    
-    const body=req.body;
+app.post("/login",async (req, res) => {
 
-    const emailOfTheUser=body.emailOfTheUser;
-    const passwordOfTheUser=body.passwordOfTheUser;
+        const body = req.body;
 
-    userModel.findOne({email:emailOfTheUser},(err,data)=>{
-        if(data.password===passwordOfTheUser){
-            console.log("Password matched!");
+        const emailOfTheUser = body.emailOfTheUser;
+        const passwordOfTheUser = body.passwordOfTheUser;
 
-            const user = {
-                id: data._id,
-                email: data.emailOfTheUser,
-            };
-            const token = jwt.sign(user, process.env.COOKIE_SECRET, {
-                expiresIn: process.env.SESSION_EXPIRES_IN
-            });
-            res.cookie("authCookie", token, {
-                httpOnly: true
-            }).redirect("/");
-            
-            
-  
-        }else{
-            console.log("Password mismatch!");
-            res.sendStatus(404);
+        await userModel.findOne({ email: emailOfTheUser }, (err, data) => {
+            if (data.password === passwordOfTheUser) {
+                console.log("Password matched!");
 
-        }
+                const user = {
+                    id: data._id,
+                    email: data.emailOfTheUser,
+                };
+                const token = jwt.sign(user, process.env.COOKIE_SECRET, {
+                    expiresIn: process.env.SESSION_EXPIRES_IN
+                });
+                res.cookie("authCookie", token, {
+                    httpOnly: true
+                }).redirect("/");
+
+
+
+            } else {
+                console.log("Password mismatch!");
+                res.sendStatus(404);
+
+            }
+        });
+
+
+
+
+
+
+
     });
-
-
-
-
-
-
-    
-});
 
 
 app.get("/logout",(req,res)=>{
