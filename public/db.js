@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
-
+const dotenv=require("dotenv");
 const connection=()=>{
-    mongoose.connect("mongodb://localhost:27017/AutoDogg", {
+    
+mongoose.connect("mongodb+srv://"+(process.env.DATABASE_USERNAME)+":"+(process.env.DATABASE_PASSWORD)+"@autodoggdb.ia2jk.mongodb.net/AutoDogg?retryWrites=true&w=majority",
+     {
     useNewUrlParser: true,
     useUnifiedTopology: true
 },(err)=>{
@@ -15,3 +17,5 @@ mongoose.set('useFindAndModify', false);
 }
 
 module.exports=connection;
+
+//mongoose.connect("mongodb://localhost:27017/AutoDogg",
