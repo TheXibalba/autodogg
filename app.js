@@ -61,7 +61,7 @@ app.get("/signup",(req,res)=>{
 });
 
 app.post("/signup",(req,res)=>{
-    
+    connection();
     const body=req.body;
     const newUser = new userModel({
         name: body.nameOfTheUser,
@@ -101,11 +101,12 @@ app.get("/login",(req,res)=>{
 });
 
 app.post("/login",(req,res)=>{
+    connection();
     const body=req.body;
 
     const emailOfTheUser=body.emailOfTheUser;
     const passwordOfTheUser=body.passwordOfTheUser;
-/* 
+
     userModel.findOne({email:emailOfTheUser},(err,data)=>{
         if(data.password===passwordOfTheUser){
             console.log("Password matched!");
@@ -130,9 +131,9 @@ app.post("/login",(req,res)=>{
         }
     });
 
- */
 
-res.redirect("/");
+
+
 
 
     
