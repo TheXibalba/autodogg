@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const dotenv=require("dotenv");
 const connection=()=>{
     
-mongoose.connect("mongodb+srv://"+(process.env.DATABASE_USERNAME)+":"+(process.env.DATABASE_PASSWORD)+"@autodoggdb.ia2jk.mongodb.net/AutoDogg?retryWrites=true&w=majority",
+mongoose.connect("mongodb+srv://"+(process.env.DATABASE_USERNAME)+":"+(process.env.DATABASE_PASSWORD)+"@autodoggDb.ia2jk.mongodb.net/AutoDogg?retryWrites=true&w=majority",
      {
     useNewUrlParser: true,
     useUnifiedTopology: true
