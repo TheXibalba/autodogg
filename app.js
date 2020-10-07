@@ -74,7 +74,7 @@ app.post("/signup",(req,res)=>{
     });
     
   
-    newUser.save(function(err){
+  /*   newUser.save(function(err){
         if(err){
             console.log(err);
             res.send("user not saved!");
@@ -82,11 +82,11 @@ app.post("/signup",(req,res)=>{
             console.log("User has been Saved successfully!");
             res.redirect("/login");
         }
-       });
+       }); */
 
-//saveNewUser(newUser);
+    saveNewUser(newUser);
 
-  
+res.redirect("/login");
 
     
 });
