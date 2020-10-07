@@ -32,6 +32,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 
  app.get("/",auth,(req,res)=>{
+    connection();
      let tempAuthStatus="";
     if(req.authenticated==="TRUE"){
         tempAuthStatus="TRUE"
@@ -48,6 +49,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 });
 
 app.get("/signup",(req,res)=>{
+    connection();
     let tempAuthStatus="";
     if(req.authenticated==="TRUE"){
         tempAuthStatus="TRUE"
@@ -61,7 +63,7 @@ app.get("/signup",(req,res)=>{
 });
 
 app.post("/signup",(req,res)=>{
-    
+    connection();
     const body=req.body;
     const newUser = new userModel({
         name: body.nameOfTheUser,
@@ -94,21 +96,18 @@ res.redirect("/login");
 
 
 app.get("/login",(req,res)=>{
-   
+    connection();
     res.render("login.ejs",{
         authenticationIndicator: req.authenticated
     });
 });
 
 app.post("/login",(req, res) => {
-
+    connection();
         const body = req.body;
 
         const emailOfTheUser = body.emailOfTheUser;
         const passwordOfTheUser = body.passwordOfTheUser;
-
-
-
 
          userModel.findOne({ email: emailOfTheUser }, (err, data) => {
          setTimeout(()=>{
