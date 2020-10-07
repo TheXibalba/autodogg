@@ -107,19 +107,16 @@ app.post("/login",(req, res) => {
         const emailOfTheUser = body.emailOfTheUser;
         const passwordOfTheUser = body.passwordOfTheUser;
 
-userModel.find({email: emailOfTheUser},(err, data)=>{
-    console.log(data[0]);
-});
 
 
 
-         userModel.find({ email: emailOfTheUser }, (err, data) => {
-            if (data[0].password === passwordOfTheUser) {
+         userModel.findOne({ email: emailOfTheUser }, (err, data) => {
+            if (data.password === passwordOfTheUser) {
                 console.log("Password matched!");
 
                 const user = {
-                    id: data[0]._id,
-                    email: data[0].emailOfTheUser,
+                    id: data._id,
+                    email: data.emailOfTheUser,
                 };
                 const token = jwt.sign(user, process.env.COOKIE_SECRET, {
                     expiresIn: process.env.SESSION_EXPIRES_IN
