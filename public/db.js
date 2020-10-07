@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const dotenv=require("dotenv");
 const connection=()=>{
     
-mongoose.connect("mongodb+srv://"+(process.env.DATABASE_USERNAME)+":"+(process.env.DATABASE_PASSWORD)+"@autodoggDb.ia2jk.mongodb.net/AutoDogg",
+mongoose.connect("mongodb+srv://AUtoDoggAdmin:3214567890@autodoggDb.ia2jk.mongodb.net/AutoDogg",
      {
     useNewUrlParser: true
    
