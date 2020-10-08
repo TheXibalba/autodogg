@@ -69,6 +69,7 @@ app.post("/signup",(req,res)=>{
         name: body.nameOfTheUser,
         email: body.emailOfTheUser,
         password:body.passwordOfTheUser,
+        contact: body.contactOfTheUser,
         ID:{
             idType:body.idTypeOfTheUser,
             idLastChars: body.idValue

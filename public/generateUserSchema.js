@@ -15,6 +15,10 @@ const generateUserSchema=()=>{
         required:true
         
     },
+    contact:{
+        type:String,
+        required:true
+    },
     password:{
         type: String
     },
