@@ -1,9 +1,10 @@
 console.log("JS running!");
+const path=window.location.pathname;
 
+if(path==="/signup"){
 const passwordOfTheUser=document.getElementById("passwordOfTheUser");
 const rePasswordOfTheUser=document.getElementById("rePasswordOfTheUser");
 
-const tick=document.getElementById("tick");
 const formSubmitButton=document.getElementById("submit");
 let tempValue="";
 
@@ -31,4 +32,4 @@ if((e.target.value)===(e1.target.value)){
 
 });
 
-
+}
