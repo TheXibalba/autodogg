@@ -8,10 +8,13 @@ mongoose.connect(`mongodb+srv://${process.env.DATABASE_USERNAME}:${process.env.D
     useUnifiedTopology: true
    
 },(err)=>{
+    
     if(!err){
         console.log("Connected to the database!");
+     
     }else{
         console.log(err);
+      
     }
 });
 mongoose.set('useFindAndModify', false);

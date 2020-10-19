@@ -9,7 +9,7 @@ const auth=require("./public/auth");
 const jwt=require("jsonwebtoken");
 const app=express();
 
-const bodyParser=require("body-parser");
+const bodyParser=require("body-parser"); 
 
  
 app.set('view engine', 'ejs');
@@ -20,17 +20,14 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 
  //Connect to the Database!
-
- connection();
-
+    connection();
+ 
  //Generate the user schema for signing up the users
  const userSchema=generateUserSchema();
 
  //Generate a user model based on the user schema
 
  const userModel=generateUserModel(userSchema);
-
-
 
  app.get("/",auth,(req,res)=>{
  
@@ -41,7 +38,7 @@ app.use(bodyParser.urlencoded({extended:true}));
         tempAuthStatus="FALSE"
     }
     console.log("tempAuthStatus: ", tempAuthStatus );
-    res.render("index.ejs",{
+    res.render("index",{
         authenticationIndicator: tempAuthStatus,
     
 
@@ -58,7 +55,7 @@ app.get("/signup",(req,res)=>{
         tempAuthStatus="FALSE"
     }
 
-    res.render("signup.ejs",{
+    res.render("signup",{
         authenticationIndicator: tempAuthStatus,
     });
 });
@@ -77,31 +74,38 @@ app.post("/signup",(req,res)=>{
         },
         
     });
-    
+  
   
 try{
-    saveNewUser(newUser);
-    res.redirect("/login");
+     saveNewUser(newUser);
+    
+    res.render("errorAndSuccessPage",{
+    authenticationIndicator: "FALSE",
+    message: "Registered Successfully! Redirecting...",
+    redirectToPage: "/login",
+    color: "bg-success"
+    })
+    
 }catch(error){
-    res.render("errorPage.ejs",
+    res.render("errorAndSuccessPage",
     {   
         authenticationIndicator: "FALSE" , 
-        message:"Database Error! Redirecting...",
-        redirectToPage:"/signup"
-
+        message: "Error During user Signup! Redirecting..." ,
+        redirectToPage:"/signup", 
+        color: "bg-warning"
 
 });
 }
 
 
 
-    
+     
 });
 
 
 app.get("/login",auth,(req,res)=>{
  
-    res.render("login.ejs",{
+    res.render("login",{
         authenticationIndicator: req.authenticated
     });
 });
@@ -135,7 +139,7 @@ app.post("/login",(req, res) => {
             }
         } catch(error){
                 console.log("Password mismatch!");
-                        res.render("errorPage",{
+                        res.render("errorAndSuccessPage",{
                         authenticationIndicator: "FALSE" , 
                         message: "The Username or Password is Invalid! Redirecting...",
                         redirectToPage:"/login"    
@@ -147,10 +151,6 @@ app.post("/login",(req, res) => {
         });
 
     }
-
-
-
-         
 
     );
 
