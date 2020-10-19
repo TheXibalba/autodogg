@@ -20,11 +20,12 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 
  //Connect to the Database!
+
  connection();
 
  //Generate the user schema for signing up the users
  const userSchema=generateUserSchema();
-/* console.log(userSchema); */
+
  //Generate a user model based on the user schema
 
  const userModel=generateUserModel(userSchema);
@@ -32,7 +33,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 
  app.get("/",auth,(req,res)=>{
-   // connection();
+ 
      let tempAuthStatus="";
     if(req.authenticated==="TRUE"){
         tempAuthStatus="TRUE"
@@ -49,7 +50,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 });
 
 app.get("/signup",(req,res)=>{
-  //  connection();
+ 
     let tempAuthStatus="";
     if(req.authenticated==="TRUE"){
         tempAuthStatus="TRUE"
@@ -63,7 +64,7 @@ app.get("/signup",(req,res)=>{
 });
 
 app.post("/signup",(req,res)=>{
-  //  connection();
+
     const body=req.body;
     const newUser = new userModel({
         name: body.nameOfTheUser,
@@ -78,40 +79,35 @@ app.post("/signup",(req,res)=>{
     });
     
   
-  /*   newUser.save(function(err){
-        if(err){
-            console.log(err);
-            res.send("user not saved!");
-        }else{
-            console.log("User has been Saved successfully!");
-            res.redirect("/login");
-        }
-       }); */
-
+try{
     saveNewUser(newUser);
+    res.redirect("/login");
+}catch(error){
+    res.sendStatus(500);
+}
 
-res.redirect("/login");
+
 
     
 });
 
 
 app.get("/login",auth,(req,res)=>{
-  //  connection();
+ 
     res.render("login.ejs",{
         authenticationIndicator: req.authenticated
     });
 });
 
 app.post("/login",(req, res) => {
-   // connection();
+
         const body = req.body;
 
         const emailOfTheUser = body.emailOfTheUser;
         const passwordOfTheUser = body.passwordOfTheUser;
 
          userModel.findOne({ email: emailOfTheUser }, (err, data) => {
-         
+            try{
             if (data.password === passwordOfTheUser) {
                 console.log("Password matched!");
 
@@ -129,20 +125,21 @@ app.post("/login",(req, res) => {
                 res.redirect("/");
 
 
-            } else {
+            }
+        } catch(error){
                 console.log("Password mismatch!");
-                res.sendStatus(404);
-
+                        res.redirect(401,"/login");
+                    
             }
         });
 
-
+    }
 
 
 
          
 
-    });
+    );
 
 
 app.get("/logout",(req,res)=>{
