@@ -48,12 +48,12 @@ app.get("/", auth, (req, res) => {
 
 });
 
-app.get("/signup", (req, res) => {
+app.get("/signup",auth,(req, res) => {
 
     let tempAuthStatus = "";
     if (req.authenticated === "TRUE") {
         tempAuthStatus = "TRUE"
-    } else {
+    } else { 
         tempAuthStatus = "FALSE"
     }
 
@@ -164,7 +164,9 @@ app.get("/logout", (req, res) => {
     res.clearCookie("authCookie").redirect("/");
 });
 
-app.get("/*",auth, (req, res) => {
+
+
+app.get("/*", (req, res) => {
     res.render("errorAndSuccessPage", {
         authenticationIndicator: req.authenticated,
         message: "Invalid Path! Redirecting...",
