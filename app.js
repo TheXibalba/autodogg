@@ -83,7 +83,14 @@ try{
     saveNewUser(newUser);
     res.redirect("/login");
 }catch(error){
-    res.sendStatus(500);
+    res.render("errorPage.ejs",
+    {   
+        authenticationIndicator: "FALSE" , 
+        message:"Database Error! Redirecting...",
+        redirectToPage:"/signup"
+
+
+});
 }
 
 
@@ -106,7 +113,7 @@ app.post("/login",(req, res) => {
         const emailOfTheUser = body.emailOfTheUser;
         const passwordOfTheUser = body.passwordOfTheUser;
 
-         userModel.findOne({ email: emailOfTheUser }, (err, data) => {
+         userModel.findOne({ email: emailOfTheUser, password:passwordOfTheUser }, (err, data) => {
             try{
             if (data.password === passwordOfTheUser) {
                 console.log("Password matched!");
@@ -128,7 +135,13 @@ app.post("/login",(req, res) => {
             }
         } catch(error){
                 console.log("Password mismatch!");
-                        res.redirect(401,"/login");
+                        res.render("errorPage",{
+                        authenticationIndicator: "FALSE" , 
+                        message: "The Username or Password is Invalid! Redirecting...",
+                        redirectToPage:"/login"    
+                    
+                    
+                    });
                     
             }
         });

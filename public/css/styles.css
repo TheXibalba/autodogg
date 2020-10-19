@@ -66,3 +66,7 @@ background-size: cover;
     opacity: 0.8;
   
 }
+
+#errorMessage{
+    margin: 15% auto;
+}
