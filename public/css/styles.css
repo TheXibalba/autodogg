@@ -10,20 +10,11 @@ background-image: url("../img/background-compressed.jpg");
 background-size: cover;
 }
 .brand {
-    height: 65px;
-    width: 65px;
-   /*  margin-right: 31.5rem; */
+    height:3.7rem;
+    width: 3.7rem;
     border-radius: 10px;
 }
-/* 
-.brand:hover{
-    
-    animation-name: animatebrand;
-    animation-duration: 0.5s ;
-    animation-iteration-count: infinite;
-    animation-fill-mode: backwards;
-}
- */
+
 @keyframes animatebrand{
     from{
         transform:scale(100%);
@@ -50,7 +41,7 @@ background-size: cover;
 
 .car-brands img:hover{
     transition: transform 0.3s ease-in-out;
-    transform: scale(115%);
+    transform: scale(113%);
     cursor: pointer;
 }
 

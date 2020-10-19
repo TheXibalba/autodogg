@@ -1,16 +1,16 @@
-const mongoose= require("mongoose");
+const mongoose = require("mongoose");
 
 
-const saveNewUser=(newUser)=>{
-    newUser.save(function(err){
-        if(err){
+const saveNewUser = (newUser) => {
+    newUser.save(function (err) {
+        if (err) {
             console.log(err);
-            
-        }else{
+
+        } else {
             console.log("User has been Saved successfully!");
-        
+
         }
-       });
+    });
 }
 
-module.exports= saveNewUser;
+module.exports = saveNewUser;

@@ -2,17 +2,16 @@
 
 
 
-<div class="card <%=color%> d-flex justify-content-center align-items-center" id="errorMessage" >
+<div class="card <%=color%> d-flex justify-content-center align-items-center" id="errorMessage">
 
 
-    <p class="h4 pt-2 pb-2">    <%= message%></p>
-</div> 
+  <p class="h4 pt-2 pb-2"> <%= message%></p>
+</div>
 
 <script>
-
-setTimeout(function () {
-     // Redirect after 3 seconds
-     window.location = "<%=redirectToPage%>";
+  setTimeout(function () {
+    // Redirect after 3 seconds
+    window.location = "<%=redirectToPage%>";
   }, 4500)
 </script>
 

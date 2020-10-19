@@ -1,25 +1,25 @@
 <%- include("header.ejs") %>
 
 <div class="row">
-   
+
     <div class="bg-transparent  paragraph col-lg-12 d-flex justify-content-center pt-3 pb-3 pl-5 pr-5 mt-2">
-        
-    
-    
-        <p class="text-light pb-3"></p> 
-    
+
+
+
+        <p class="text-light pb-3"></p>
+
     </div>
     <div class="bg-transparent col-lg-12 booking-and-assist d-flex justify-content-center pt-2 pb-4">
-       
+
         <%if((authenticationIndicator==="TRUE") ){%>
 
-          
-            <a  class="btn btn-lg btn-success m-2" href="/book">Book Your Slot Now!</a>
-            
-            <%}else{%>
-                <a  class="btn btn-lg btn-success m-2" href="/login">Book a Slot Now!</a>
 
-            <%}%>
+        <a class="btn btn-lg btn-success m-2" href="/book">Book Your Slot Now!</a>
+
+        <%}else{%>
+        <a class="btn btn-lg btn-success m-2" href="/login">Book a Slot Now!</a>
+
+        <%}%>
 
         
        <a  class="btn btn-lg btn-warning m-2" href="/assistance">On Site Assistance!</a>
@@ -27,7 +27,7 @@
 </div>
    
 <div class="col-lg-12 car-brands jumbotron  mt-3 pt-3">
-<p class="text-light text-center font-weight-bold d-block pb-3 h4">Purchase High Quality Spare Parts</p>
+<p class="text-light text-center d-block pb-3 h3">Purchase High Quality Spare Parts</p>
 <div class="d-flex justify-content-around pt-2 pb-3">
 
     <img src="/img/toyota.png" alt="">
