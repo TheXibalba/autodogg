@@ -82,7 +82,7 @@ app.post("/signup", (req, res) => {
         saveNewUser(newUser);
 
         res.render("errorAndSuccessPage", {
-            authenticationIndicator: "FALSE",
+            authenticationIndicator: req.authenticated,
             message: "Registered Successfully! Redirecting...",
             redirectToPage: "/login",
             color: "bg-success"
@@ -90,7 +90,7 @@ app.post("/signup", (req, res) => {
 
     } catch (error) {
         res.render("errorAndSuccessPage", {
-            authenticationIndicator: "FALSE",
+            authenticationIndicator: req.authenticated,
             message: "Error During user Signup! Redirecting...",
             redirectToPage: "/signup",
             color: "bg-warning"
@@ -144,7 +144,7 @@ app.post("/login", (req, res) => {
         } catch (error) {
             console.log("Password mismatch!");
             res.render("errorAndSuccessPage", {
-                authenticationIndicator: "FALSE",
+                authenticationIndicator: req.authenticated,
                 message: "The Username or Password is Invalid! Redirecting...",
                 color: "bg-warning",
                 redirectToPage: "/login"
@@ -164,9 +164,9 @@ app.get("/logout", (req, res) => {
     res.clearCookie("authCookie").redirect("/");
 });
 
-app.get("/*", (req, res) => {
+app.get("/*",auth, (req, res) => {
     res.render("errorAndSuccessPage", {
-        authenticationIndicator: "FALSE",
+        authenticationIndicator: req.authenticated,
         message: "Invalid Path! Redirecting...",
         color: "bg-warning",
         redirectToPage: "/"

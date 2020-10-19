@@ -30,13 +30,16 @@ module.exports = (req, res, next) => {
 
 
 
-         return res.status(401).cookie("authCookie", "", {
+         return res.cookie("authCookie", "", {
             maxAge: 0
-         }).send("<h1>Unauthorized!</h1>");
+         }).render("errorAndSuccessPage",{
+            authenticationIndicator: "FALSE",
+            message: "Unauthorized User! Redirecting...",
+            color: "bg-warning",
+            redirectToPage: "/login"
+
+         });
 
       }
    }
-
-
-
 };

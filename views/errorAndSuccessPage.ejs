@@ -5,14 +5,14 @@
 <div class="card <%=color%> d-flex justify-content-center align-items-center" id="errorMessage">
 
 
-  <p class="h4 pt-2 pb-2"> <%= message%></p>
+  <p class="h4 pt-2 pb-2"><%=message%></p>
 </div>
 
 <script>
   setTimeout(function () {
     // Redirect after 3 seconds
     window.location = "<%=redirectToPage%>";
-  }, 4500)
+  }, 3500)
 </script>
 
 <%- include("footer.ejs") %>
