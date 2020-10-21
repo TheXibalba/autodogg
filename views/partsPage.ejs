@@ -1,0 +1,19 @@
+<%- include("header.ejs") %>
+
+<div class="row d-flex justify-content-center align-items-center mt-5" > 
+   <%collection.forEach((element,index)=>{ %>
+<% console.log(element.headlight.img) %>
+    <div class="col-lg-3 p-3 d-flex justify-content-around align-items-center mt-2">
+
+        <img class="partImage" src=<%=  %> >
+    </div>
+    
+    <%});%>
+    
+   </div>
+
+
+
+
+<%- include("footer.ejs") %>
+

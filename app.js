@@ -4,11 +4,14 @@ const connection = require("./public/db.js");
 const connectionLocal = require("./public/dbLocal.js");
 const generateUserSchema = require("./public/generateUserSchema");
 const generateUserModel = require("./public/generateUserModel");
+const generateBrandsSchema = require("./public/generateBrandsSchema");
+const generateBrandsModel = require("./public/generateBrandsModel");
 const saveNewUser = require("./public/saveNewUser");
 const auth = require("./public/auth");
 const jwt = require("jsonwebtoken");
 const app = express();
-
+const parts=require("./public/parts.js");
+const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
 
@@ -22,14 +25,19 @@ app.use(bodyParser.urlencoded({
 
 
 //Connect to the Database!
-connection();
+connectionLocal();
 
 //Generate the user schema for signing up the users
 const userSchema = generateUserSchema();
-
+const brandsSchema=generateBrandsSchema();
 //Generate a user model based on the user schema
 
 const userModel = generateUserModel(userSchema);
+const brandsModel=generateBrandsModel(brandsSchema);
+
+
+
+
 
 app.get("/", auth, (req, res) => {
 
@@ -134,7 +142,8 @@ app.post("/login", (req, res) => {
                     expiresIn: process.env.SESSION_EXPIRES_IN
                 });
                 res.cookie("authCookie", token, {
-                    httpOnly: true
+                    httpOnly: true,
+                    secure:true
                 });
 
                 res.redirect("/");
@@ -157,13 +166,44 @@ app.post("/login", (req, res) => {
 
     });
 
-});
+}); 
 
 
 app.get("/logout", (req, res) => {
     res.clearCookie("authCookie").redirect("/");
 });
 
+app.get("/parts/:brand",(req,res)=>{
+
+
+    
+    
+    const brandName=(req.params.brand);   
+    const tempImgPaths=parts[brandName].toyotaParts;
+    
+    
+    brandsModel.findOne({name: brandName},(err,collection)=>{
+        if(err){
+            console.log(err);
+        }else{
+       /*    
+            console.log(collection.parts);    */
+        res.render("partsPage",{
+        authenticationIndicator: req.authenticated,
+        collection: collection.parts
+ 
+    });
+
+
+                 
+ 
+        }
+    });
+ 
+ 
+//  console.log(parts[brandName].imgPath);
+
+});
 
 
 app.get("/*", (req, res) => {
@@ -177,5 +217,5 @@ app.get("/*", (req, res) => {
 });
 app.listen(process.env.PORT || 3000, () => {
     console.log("Server is running");
-    console.log(__dirname);
+    
 });

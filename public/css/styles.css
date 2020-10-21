@@ -61,3 +61,16 @@ background-size: cover;
 #errorMessage{
     margin: 15% auto;
 }
+.partImage{
+width: 18rem;
+height: 18rem;
+border-radius: 0.8rem;
+
+}
+
+.partImage:hover{
+    transition: transform 0.3s ease-in-out;
+    transform: scale(102%);
+    cursor: pointer;
+    
+}

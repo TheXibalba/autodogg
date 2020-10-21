@@ -30,19 +30,32 @@
 <p class="text-light text-center d-block pb-3 h3">Purchase High Quality Spare Parts</p>
 <div class="d-flex justify-content-around pt-2 pb-3">
 
-    <img src="/img/toyota.png" alt="">
-    <img src="/img/ford.png" alt="">
-    <img src="/img/marutisuzuki.png" alt="">
-    <img src="/img/honda.png" alt="">
-   <img src="/img/renault.png" alt="">
-   <img src="/img/tata.png" alt="">
-   <img src="/img/mahindra.png" alt="">
+    <img class="brandName" src="/img/toyota.png" alt="toyota">
+    <img class="brandName" src="/img/ford.png" alt="ford">
+    <img class="brandName" src="/img/marutisuzuki.png" alt="marutisuzuki">
+    <img class="brandName" src="/img/honda.png" alt="honda">
+    <img class="brandName" src="/img/renault.png" alt="renault">
+    <img class="brandName" src="/img/tata.png" alt="tata">
+    <img class="brandName" src="/img/mahindra.png" alt="mahindra">
     </div>
 </div>
 
 </div>
 
-  
+ <script defer > 
+
+const brandNames=document.getElementsByClassName("brandName");
+let i=0;
+for(i=0;i<brandNames.length;i++){
+    brandNames[i].addEventListener("click",(e)=>{
+        window.location="/parts/"+(e.target.getAttribute("alt"));
+    });
+}
+
+// console.log(brandNames);
+
+
+ </script> 
 
 
 <%- include("footer.ejs") %>

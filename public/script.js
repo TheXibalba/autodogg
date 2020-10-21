@@ -6,7 +6,7 @@ if (path === "/signup") {
     const rePasswordOfTheUser = document.getElementById("rePasswordOfTheUser");
 
     const formSubmitButton = document.getElementById("submit");
-    let tempValue = "";
+  
 
     passwordOfTheUser.addEventListener("keyup", (e1) => {
 
