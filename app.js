@@ -216,7 +216,7 @@ app.post("/contact",(req, res)=>{
         authenticationIndicator: req.authenticated,
         message: "Message Sent! Redirecting...",
         color: "bg-success",
-        redirectToPage: "/contact"
+        redirectToPage: "/"
     });
 });
 
@@ -239,7 +239,7 @@ app.get("/assistance",(req, res)=>{
             authenticationIndicator:req.authenticated,
             message: "Messsage Sent! Hang On, You Will Be Contacted Shortly...",
         color: "bg-success",
-        redirectToPage: "/assistance"
+        redirectToPage: "/"
         });
         });  
 
