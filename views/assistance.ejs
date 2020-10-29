@@ -1,5 +1,111 @@
 <%- include("header.ejs") %>
+    
+    <div class="assistance-form jumbotron bg-dark d-flex justify-content-center ml-auto mr-auto mt-4 pb-3 pt-4">
 
+        <form action="/assistance" method="post" class="w-100 pt-0">
+            <p class="h4 pb-3 text-light text-center">Need a Hand? We've Got You Covered!</p>
+    <div class="row pl-2 pr-2 bg-light pt-5 pb-5 pl-3 pr-4">
+            <div class=" col-lg-6">
+         
+            <div class="form-group">
+                <input type="text" class="form-control" name="nameOfTheUser" id="nameOfTheUser"
+                    placeholder="Enter Your Full Name" required>
+    
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" name="emailOfTheUser" id="emailOfTheUser"
+                    placeholder="Enter Your Email ( Optional )" >
+    
+            </div>
+            <div class="form-group">
+                <input type="text" minlength="10" maxlength="10" autocomplete="off" class="form-control"
+                    name="contactOfTheUser" id="contactOfTheUser" placeholder="Mobile Number" required>
+    
+            </div>
 
+            <select name="isRegistered" id="isRegistered" class="dropdown form-control mr-1 pr-5 pl-1" >
+                <option class="dropdown-item" value="Registerd with us?" selected>Are You Registerd With Us?</option>
+                <option class="dropdown-item" value="YES">YES</option>
+                <option class="dropdown-item" value="NO">NO</option>
+            
+                
+            </select>
 
-<%- include("footer.ejs") %>
+        </div>
+        <div class=" col-lg-6">
+            <div class="form-group d-flex flex-row justify-content-between">
+                <input type="text" class="form-control mr-1" name="carModel" id="carModel"
+                    placeholder="Car Model Name" >
+                    <select name="carYear" id="carYear" class="dropdown form-control mr-1 pl-1 pr-4" >
+                        
+                        <%
+                        let currentYear=new Date().getFullYear();
+                        
+                        for(let i=currentYear;i>=currentYear-25;i--){  %>
+                            <option class="dropdown-item" value="<%=i%>"><%=i%></option>
+                            <%}%>
+                        </select>
+                        <select name="problem" id="problem" class="dropdown form-control mr-1 pr-5 pl-1" >
+                                <option class="dropdown-item" value="Problem" selected>Problem</option>
+                                <option class="dropdown-item" value="engine">ENGINE</option>
+                                <option class="dropdown-item" value="tyres">TYRES</option>
+                                <option class="dropdown-item" value="battery">BATTERY</option>
+                                <option class="dropdown-item" value="other">OTHER</option>
+                                
+                            </select>
+                        <input type="text" class="form-control mr-1 w-25" name="carPlate" id="carPlate"
+                            placeholder="Number Plate" >
+                
+                        </div>
+                        <div class="form-group">
+                            <input type="button" class="form-control btn btn-primary"
+                                name="locationOfTheUser" id="locationOfTheUser" value="Get Your Current Location or Enter it Below(Allow it and wait for a Few Seconds.)">
+                
+                        </div>
+            <div class="form-group">
+                <textarea class="form-control" minlength="5" id="message" name="message" placeholder="Any Additional Information (You Can Also Mention The Problem If It Is Not Listed.)" rows="3" ></textarea>
+            </div>
+    </div>
+    </div>
+                <div class="form-group d-flex justify-content-center mt-4">
+    
+                    <input class="btn btn-warning btn-md w-25" type="submit" value="Send Assistance!" name="assistance"
+                        id="assistance">
+                </div>
+               
+        </form>
+    
+    
+  
+    
+    </div>
+<script>
+const locationOfTheUser=document.getElementById("locationOfTheUser");
+
+locationOfTheUser.addEventListener("click",(e)=>{
+    const location=navigator.geolocation.getCurrentPosition((position)=>{
+      
+    let latitude=position.coords.latitude;
+    let longitude=position.coords.longitude ;
+    
+
+    
+    locationOfTheUser.setAttribute("value",`Latitude: ${latitude} & Longitude: ${longitude}`);
+    locationOfTheUser.setAttribute("disabled",true);
+    locationOfTheUser.classList.replace("btn-primary","btn-success");
+    locationOfTheUser.classList.replace("btn-warning","btn-success");
+    locationOfTheUser.classList.add("font-weight-bold");
+    
+    
+    
+},(error)=>{
+    locationOfTheUser.setAttribute("value","Error! Please Allow The Location Permission");
+    locationOfTheUser.classList.replace("btn-primary","btn-warning");
+    locationOfTheUser.classList.add("text-dark","font-weight-bold");
+
+    });
+});
+
+</script>
+
+    <%- include("footer.ejs") %>

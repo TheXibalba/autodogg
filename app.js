@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({
 
 
 //Connect to the Database!
-connectionLocal();
+connection();
 
 //Generate the user schema for signing up the users
 const userSchema = generateUserSchema();
@@ -173,38 +173,75 @@ app.get("/logout", (req, res) => {
     res.clearCookie("authCookie").redirect("/");
 });
 
-app.get("/parts/:brand",(req,res)=>{
+// app.get("/parts/:brand",(req,res)=>{
 
 
     
     
-    const brandName=(req.params.brand);   
-    const tempImgPaths=parts[brandName].toyotaParts;
+//     const brandName=(req.params.brand);   
+//     const tempImgPaths=parts[brandName].toyotaParts;
     
     
-    brandsModel.findOne({name: brandName},(err,collection)=>{
-        if(err){
-            console.log(err);
-        }else{
-       /*    
-            console.log(collection.parts);    */
-        res.render("partsPage",{
-        authenticationIndicator: req.authenticated,
-        collection: collection.parts
+//     brandsModel.findOne({name: brandName},(err,collection)=>{
+//         if(err){
+//             console.log(err);
+//         }else{
+//        /*    
+//             console.log(collection.parts);    */
+//         res.render("partsPage",{
+//         authenticationIndicator: req.authenticated,
+//         collection: collection.parts
  
-    });
+//     });
 
 
                  
  
-        }
-    });
+//         }
+//     });
  
  
-//  console.log(parts[brandName].imgPath);
+// //  console.log(parts[brandName].imgPath);
 
+// });
+
+app.get("/contact",(req, res)=>{
+    res.render("contact",{
+        authenticationIndicator: req.authenticated
+    });
+});
+app.post("/contact",(req, res)=>{
+    console.log(req.body);
+    res.render("errorAndSuccessPage",{
+        authenticationIndicator: req.authenticated,
+        message: "Message Sent! Redirecting...",
+        color: "bg-success",
+        redirectToPage: "/contact"
+    });
 });
 
+app.get("/about",(req, res)=>{
+res.render("about",{
+    authenticationIndicator:req.authenticated
+})
+});
+
+app.get("/assistance",(req, res)=>{
+    res.render("assistance",{
+        authenticationIndicator:req.authenticated
+    })
+    });
+ 
+    
+    app.post("/assistance",(req, res)=>{
+        console.log(req.body);
+        res.render("errorAndSuccessPage",{
+            authenticationIndicator:req.authenticated,
+            message: "Messsage Sent! Hang On, You Will Be Contacted Shortly...",
+        color: "bg-success",
+        redirectToPage: "/assistance"
+        });
+        });  
 
 app.get("/*", (req, res) => {
     res.render("errorAndSuccessPage", {
@@ -215,6 +252,9 @@ app.get("/*", (req, res) => {
     });
 
 });
+
+
+
 app.listen(process.env.PORT || 3000, () => {
     console.log("Server is running");
     
