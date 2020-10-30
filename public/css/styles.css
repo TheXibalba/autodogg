@@ -6,7 +6,8 @@
 
 }
 body{
-background-image: url("../img/background-compressed.jpg");
+    background-image: url("https://i.ibb.co/rfx0mL5/background-compressed.jpg");
+/* background-image: url("../img/background-compressed.jpg"); */
 background-size: cover;
 height: 100vh;
 }
