@@ -131,7 +131,7 @@ app.post("/signup", (req, res) => {
                             replyTo: process.env.MAIL_FROM
                         }
                         //Send Email
-                     //   transporter.sendMail(mailOptions);
+                      transporter.sendMail(mailOptions);
                         res.render("errorAndSuccessPage", {
                             authenticationIndicator: req.authenticated,
                             message: "Registered Successfully! Redirecting...",
