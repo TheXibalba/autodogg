@@ -14,7 +14,7 @@
             </div>
             <div class="form-group">
                 <input type="email" class="form-control" name="emailOfTheUser" id="emailOfTheUser"
-                    placeholder="Enter Your Email ( Optional )" >
+                    placeholder="Enter Your Email" >
     
             </div>
             <div class="form-group">
@@ -47,10 +47,10 @@
                         </select>
                         <select name="problem" id="problem" class="dropdown form-control mr-1 pr-5 pl-1" >
                                 <option class="dropdown-item" value="Problem" selected>Problem</option>
-                                <option class="dropdown-item" value="engine">ENGINE</option>
-                                <option class="dropdown-item" value="tyres">TYRES</option>
-                                <option class="dropdown-item" value="battery">BATTERY</option>
-                                <option class="dropdown-item" value="other">OTHER</option>
+                                <option class="dropdown-item" value="ENGINE">ENGINE</option>
+                                <option class="dropdown-item" value="TYRES">TYRES</option>
+                                <option class="dropdown-item" value="BATTERY">BATTERY</option>
+                                <option class="dropdown-item" value="OTHER">OTHER</option>
                                 
                             </select>
                         <input type="text" class="form-control mr-1 w-25" name="carPlate" id="carPlate"
@@ -87,9 +87,6 @@ locationOfTheUser.addEventListener("click",(e)=>{
       
     let latitude=position.coords.latitude;
     let longitude=position.coords.longitude ;
-    
-
-    
     locationOfTheUser.setAttribute("value",`Latitude: ${latitude} & Longitude: ${longitude}`);
     locationOfTheUser.setAttribute("disabled",true);
     locationOfTheUser.classList.replace("btn-primary","btn-success");

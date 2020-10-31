@@ -1,0 +1,73 @@
+<%- include("header.ejs") %>
+    
+    <div class="booking-form jumbotron bg-dark d-flex justify-content-center w-50 ml-auto mr-auto mt-2 pb-1 pt-3">
+
+        <form action="/booking" method="post" class="w-100 pt-0">
+            <p class="h4 pb-3 text-light text-center">Book a Slot For Repairs</p>
+    <div class=" pl-2 pr-2 bg-light pt-5 pb-5 pl-3 pr-4 rounded">
+
+       
+            <div class="form-group d-flex flex-row justify-content-between">
+                <input type="text" class="form-control mr-1" name="carModel" id="carModel"
+                    placeholder="Car Model Name" >
+                    <select name="carYear" id="carYear" class="dropdown form-control mr-1 pl-1 pr-4" >
+                        
+                        <%
+                        let currentYear=new Date().getFullYear();
+                        
+                        for(let i=currentYear;i>=currentYear-25;i--){  %>
+                            <option class="dropdown-item" value="<%=i%>"><%=i%></option>
+                            <%}%>
+                        </select>
+               
+                
+                        </div>
+                        <div class="form-group  d-flex justify-content-between">
+                            <select name="problem" id="problem" class="dropdown form-control mr-1 pr-5 pl-1" >
+                                <option class="dropdown-item" value="Problem" selected>Problem</option>
+                                <option class="dropdown-item" value="Engine/Radiator Issues">Engine/Radiator Issues</option>
+                                <option class="dropdown-item" value="Worn Out Tyres">Worn Out Tyres</option>
+                                <option class="dropdown-item" value="Dead/Discharged Battery">Dead/Discharged Battery</option>
+                                <option class="dropdown-item" value="Cosmetic(WindShield,Paint Job,etc) Repairs">Cosmetic(WindShield,Paint Job,etc) Repairs</option>
+                                <option class="dropdown-item" value="Other">Other</option>
+                                
+                            </select>
+                            
+                        <input type="text" class="form-control mr-1 w-30" name="carPlate" id="carPlate"
+                            placeholder="Number Plate (MHxxAAxxxx)" >
+                            
+
+                        </div>
+                        <div class="form-group ">
+<%
+let obj=new Date();
+const day=obj.getDate();
+const month=obj.getMonth()+1;
+const year=obj.getFullYear();
+%>
+
+<input name="slotDate" type="date"  min="<%=year%>-<%=month%>-<%=day%>" class="form-control" placeholder="date">
+
+                            
+                        </div>
+                        
+            <div class="form-group">
+                <textarea class="form-control" minlength="1" id="message" name="message" placeholder="Any Additional Information (You Can Also Mention The Problem If It Is Not Listed.)" rows="3" ></textarea>
+            </div>
+    
+    </div>
+                <div class="form-group d-flex justify-content-center mt-4">
+    
+                    <input class="btn btn-warning btn-md w-25" type="submit" value="Book a Slot!" name="slot"
+                        id="slot">
+                </div>
+               
+        </form>
+    
+    
+  
+    
+    </div>
+
+
+    <%- include("footer.ejs") %>

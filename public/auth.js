@@ -7,7 +7,8 @@ module.exports = (req, res, next) => {
    try {
 
       const authCodeFromCookie = (req.headers.cookie.split(";")[0]).split("=")[1];
-      /* console.log(authCodeFromCookie); */
+     // const authenticatedUser=(req.headers.cookie.split(";")[1]).split("=")[1];
+     
       console.log("Auth Middleware has run!");
       jwt.verify(authCodeFromCookie, process.env.COOKIE_SECRET);
       req.authenticated = "TRUE";
@@ -22,6 +23,7 @@ module.exports = (req, res, next) => {
          next();
       }
    } catch (error) {
+      //console.log(error);
       req.authenticated = "FALSE";
 
 
@@ -29,6 +31,8 @@ module.exports = (req, res, next) => {
 
          res.cookie("authCookie", "", {
             maxAge: 0
+         }).cookie("user","",{
+            maxAge:0
          });
          next();
       } else if(req.url==="/assistance"){
@@ -36,11 +40,10 @@ module.exports = (req, res, next) => {
             authenticationIndicator: "FALSE"
          });
       } else{
-
-
-
          return res.cookie("authCookie", "", {
             maxAge: 0
+         }).cookie("user","",{
+            maxAge:0
          }).render("errorAndSuccessPage",{
             authenticationIndicator: "FALSE",
             message: "Unauthorized User! Redirecting...",
