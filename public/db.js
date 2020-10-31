@@ -11,8 +11,10 @@ const connection = () => {
         if (!err) {
             console.log("Connected to the database!");
 
+
         } else {
             console.log(err);
+            return err;
 
         }
     });

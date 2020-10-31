@@ -11,7 +11,7 @@ const saveNewUser = require("./public/saveNewUser");
 const auth = require("./public/auth");
 const jwt = require("jsonwebtoken");
 const app = express();
-const parts=require("./public/parts.js");
+const parts=require("./public/parts.js"); 
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const predefinedMessages=require("./public/predefinedMessages");
@@ -27,7 +27,11 @@ app.use(bodyParser.urlencoded({
 
 
 //Connect to the Database and initialize nodemailer!
-connection();
+
+    connection();
+
+
+
 
 const transporter=
     nodeMailer.createTransport({
@@ -86,38 +90,57 @@ app.get("/signup",auth,(req, res) => {
 app.post("/signup", (req, res) => {
 
     const body = req.body;
-
-
-    const newUser = new userModel({
-        name: body.nameOfTheUser,
-        email: body.emailOfTheUser,
-        password: body.passwordOfTheUser,
-        contact: body.contactOfTheUser,
-        ID: {
-            idType: body.idTypeOfTheUser,
-            idLastChars: body.idValue
-        },
-
-    });
-
-
     try {
-        saveNewUser(newUser);
-        const mailOptions={
-            from: process.env.MAIL_FROM,
-            to: body.emailOfTheUser,
-            subject: "AutoDogg: Account Created!",
-            html: predefinedMessages(body.nameOfTheUser,1,"","","","","","",body.emailOfTheUser,body.passwordOfTheUser),
-            replyTo: process.env.MAIL_FROM
-        }
-        //Send Email
-        transporter.sendMail(mailOptions);
-        res.render("errorAndSuccessPage", {
-            authenticationIndicator: req.authenticated,
-            message: "Registered Successfully! Redirecting...",
-            redirectToPage: "/login",
-            color: "bg-success"
+
+        //Check if the user already exists
+        userModel.findOne({email:body.emailOfTheUser},(err, data)=>{
+            if(!err){
+                res.render("errorAndSuccessPage", {
+                    authenticationIndicator: req.authenticated,
+                    message: "This User Already Exists! Redirecting To The Login Page...",
+                    redirectToPage: "/login",
+                    color: "bg-danger"
+                });
+            }else{
+
+                const newUser = new userModel({
+                    name: body.nameOfTheUser,
+                    email: body.emailOfTheUser,
+                    password: body.passwordOfTheUser,
+                    contact: body.contactOfTheUser,
+                    ID: {
+                        idType: body.idTypeOfTheUser,
+                        idLastChars: body.idValue
+                    },
+            
+                });
+            
+            
+            
+                    saveNewUser(newUser);
+                    const mailOptions={
+                        from: process.env.MAIL_FROM,
+                        to: body.emailOfTheUser,
+                        subject: "AutoDogg: Account Created!",
+                        html: predefinedMessages(body.nameOfTheUser,1,"","","","","","",body.emailOfTheUser,body.passwordOfTheUser),
+                        replyTo: process.env.MAIL_FROM
+                    }
+                    //Send Email
+                    transporter.sendMail(mailOptions);
+                    res.render("errorAndSuccessPage", {
+                        authenticationIndicator: req.authenticated,
+                        message: "Registered Successfully! Redirecting...",
+                        redirectToPage: "/login",
+                        color: "bg-success"
+                    });
+                
+
+
+
+            }
         });
+
+   
 
     } catch (error) {
         res.render("errorAndSuccessPage", {
