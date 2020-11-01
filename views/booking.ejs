@@ -1,10 +1,10 @@
 <%- include("header.ejs") %>
     
-    <div class="booking-form jumbotron bg-dark d-flex justify-content-center w-50 ml-auto mr-auto mt-2 pb-1 pt-3">
+    <div class="booking-form container-fluid bg-dark d-flex justify-content-center ml-auto mr-auto mt-2 pb-1 pt-3">
 
-        <form action="/booking" method="post" class="w-100 pt-0">
+        <form action="/booking" method="post" class=" pt-0">
             <p class="h4 pb-3 text-light text-center">Book a Slot For Repairs</p>
-    <div class=" pl-2 pr-2 bg-light pt-5 pb-5 pl-3 pr-4 rounded">
+    <div class=" pl-2 pr-2 bg-light pt-5 pb-5 pl-3 pr-4 ">
 
        
             <div class="form-group d-flex flex-row justify-content-between">
@@ -23,7 +23,7 @@
                 
                         </div>
                         <div class="form-group  d-flex justify-content-between">
-                            <select name="problem" id="problem" class="dropdown form-control mr-1 pr-5 pl-1" >
+                            <select name="problem" id="problem" class="dropdown form-control mr-1 pr-5 pl-1 w-50" >
                                 <option class="dropdown-item" value="Problem" selected>Problem</option>
                                 <option class="dropdown-item" value="Engine/Radiator Issues">Engine/Radiator Issues</option>
                                 <option class="dropdown-item" value="Worn Out Tyres">Worn Out Tyres</option>
@@ -33,7 +33,7 @@
                                 
                             </select>
                             
-                        <input type="text" class="form-control mr-1 w-30" name="carPlate" id="carPlate"
+                        <input type="text" class="form-control mr-1 w-50" name="carPlate" id="carPlate"
                             placeholder="Number Plate (MHxxAAxxxx)" >
                             
 
@@ -58,7 +58,7 @@ const year=obj.getFullYear();
     </div>
                 <div class="form-group d-flex justify-content-center mt-4">
     
-                    <input class="btn btn-warning btn-md w-25" type="submit" value="Book a Slot!" name="slot"
+                    <input class="btn btn-warning btn-md w-75" type="submit" value="Book a Slot!" name="slot"
                         id="slot">
                 </div>
                

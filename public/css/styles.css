@@ -5,16 +5,18 @@
     overflow-x: hidden;
 
 }
+
 body{
     background-image: url("https://i.ibb.co/rfx0mL5/background-compressed.jpg");
 /* background-image: url("../img/background-compressed.jpg"); */
 background-size: cover;
 height: 100vh;
+
 }
 .brand {
-    height:3.7rem;
-    width: 3.7rem;
-    border-radius: 10px;
+    height:2.5rem;
+    max-width: 5.1rem;
+    border-radius: 0.2rem;
 }
 
 @keyframes animatebrand{
@@ -38,12 +40,13 @@ height: 100vh;
     opacity: 0.95;
 }
 .car-brands img{
-    border-radius: 5px;
+    border-radius: 50%;
+    
 }
 
 .car-brands img:hover{
     transition: transform 0.3s ease-in-out;
-    transform: scale(110%);
+    transform: scale(103%);
     cursor: pointer;
 }
 
@@ -61,6 +64,25 @@ height: 100vh;
     opacity: 0.8;
   
 }
+.contact-form{
+    max-width:38% !important;
+}
+ .login-form{
+     max-width: 32% !important;
+     margin-top: 7.5%;
+ }
+
+.signup-form{
+   
+   
+     max-width: 37% !important ;
+    
+}
+
+.booking-form{
+    max-width: 45% !important ;
+}
+
 
 #errorMessage{
     margin: 15% auto;
@@ -90,5 +112,8 @@ border-radius: 0.8rem;
 
  
   }
+
  
- 
+  .container-fluid{
+      border-radius: 0.3rem !important ;
+  }
