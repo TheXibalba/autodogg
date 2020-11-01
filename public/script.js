@@ -1,6 +1,20 @@
 console.log("JS running!");
 const path = window.location.pathname;
 
+    const width  = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+   
+   if(width <=990){
+const brandImgExpanded= document.getElementById("brandImgExpanded");
+const brandImgExpandedContainer= document.getElementById("brandImgExpandedContainer");
+
+brandImgExpandedContainer.style.display="none";
+brandImgExpanded.style.display="none";
+} 
+
+
+
+
+
 if (path === "/signup") {
     const passwordOfTheUser = document.getElementById("passwordOfTheUser");
     const rePasswordOfTheUser = document.getElementById("rePasswordOfTheUser");
@@ -33,6 +47,8 @@ if (path === "/signup") {
     });
 
 }
+
+
 window.addEventListener("resize",(e)=>{
     const width  = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
    
@@ -44,3 +60,5 @@ brandImgExpandedContainer.style.display="none";
 brandImgExpanded.style.display="none";
 } 
 });
+
+
