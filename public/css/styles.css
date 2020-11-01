@@ -18,6 +18,17 @@ height: 100vh;
     max-width: 5.1rem;
     border-radius: 0.2rem;
 }
+.navbar{
+    position: relative;
+}
+.brandImgCollapsed{
+  display: inline-block;
+    position: absolute;
+    top: 50%;  
+    left: 50%; 
+
+    transform: translate(-50%, -50%);
+}
 
 @keyframes animatebrand{
     from{

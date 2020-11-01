@@ -33,3 +33,14 @@ if (path === "/signup") {
     });
 
 }
+window.addEventListener("resize",(e)=>{
+    const width  = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+   
+   if(width <=990){
+const brandImgExpanded= document.getElementById("brandImgExpanded");
+const brandImgExpandedContainer= document.getElementById("brandImgExpandedContainer");
+console.log(width);
+brandImgExpandedContainer.style.display="none";
+brandImgExpanded.style.display="none";
+} 
+});
