@@ -1,4 +1,4 @@
-const predefinedMessages=(name,option,date,RCN,message,carModel,carYear,problem,email,pass)=>{
+const predefinedMessages=(name,option,date,RCN,message,carModel,carYear,problem,email,pass,contact)=>{
     switch(option){
         case 1:
 
@@ -46,6 +46,47 @@ const predefinedMessages=(name,option,date,RCN,message,carModel,carYear,problem,
         Thank you for Contacting us! We will contact you in the next 24 hours.<br>
         <br>Meanwhile, browse our high quality spare parts catalog and buy them at competitive Prices!<br>
         <br><b>Thank You!</b>
+        `);
+
+    break;
+    case 5:
+        return(` 
+        <h4>Slot Booking requested by: <b>${name}</b></h4><br>
+       <br><b>Particulars Of The Appointment:</b> <br>
+        <ul> 
+        <li><b>Car Model: ${carModel}</b></li>
+        <li><b>Manufactured In Year: ${carYear}</b></li>
+        <li><b>Car Registration Number: ${RCN}</b></li>
+        <li><b>Problem(s): ${problem}</b></li>
+        <li><b>Appointment Date: ${date}</b></li>
+        <li><b>Addtional Information: </b><em>${message}</em></li>
+        </ul>
+      
+        `);
+       
+    break;
+    case 6:
+        return(`Assistance was requested by:  <b>${name}</b><br>
+        <br><b>Particulars Of The Assistance Request:</b><br>
+        <ul> 
+        <li><b>Car Model: ${carModel}</b></li>
+        <li><b>Manufactured In Year: ${carYear}</b></li>
+        <li><b>Car Registration Number: ${RCN}</b></li>
+        <li><b>Problem(s): ${problem}</b></li>
+        <li><b>Addtional Information: </b><em>${message}</em></li>
+        </ul>
+        
+        `);
+    break;
+    case 7:
+        return(`<h4>A customer has contacted</b></h4><br>
+        Patriculars:<br>
+        <ul> 
+        <li><b> Name: ${name}</b></li>
+        <li><b>Manufactured In Year: ${carYear}</b></li>
+        <li><b>Contact Number: ${contact}</b></li>
+        <li><b>Message: </b><em>${message}</em></li>
+        </ul>
         `);
 
     break;

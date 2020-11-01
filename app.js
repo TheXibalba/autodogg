@@ -301,13 +301,29 @@ app.post("/contact",(req, res)=>{
         subject: "AutoDogg",
         html: predefinedMessages(body.nameOfTheUser,4,"","","","","","","",""),
         replyTo: process.env.MAIL_FROM
+    };
+    let mailOptionsSelf={
+        from: process.env.MAIL_FROM,
+        to: "yurajpawar99@gmail.com",
+        subject: "AutoDogg: A Customer Contacted",
+        html: predefinedMessages(body.nameOfTheUser,7,"","",body.message,"","","","","",body.contactOfTheUser),
+        replyTo: body.emailOfTheUser
     }
     //Send Email
     
     try{
     transporter.sendMail(mailOptions,(err,info)=>{
         if(!err){
-            console.log("Mail has been sent Successfully!");
+            console.log("Mail has been sent to the customer!");
+            transporter.sendMail(mailOptionsSelf,(err,info)=>{
+                if(!err){
+                    console.log("Mail has been sent to the Admin!");
+                    
+        
+                }else{
+                    throw new Error("Could not send the email!");
+                }});
+
         }else{
             throw new Error("Could not send the email!");
         }});
@@ -323,7 +339,7 @@ app.post("/contact",(req, res)=>{
         authenticationIndicator:req.authenticated,
         message: "An Error Has Ocurred! Please Try Again Later...",
     color: "bg-danger",
-    redirectToPage: "/assistance"
+    redirectToPage: "/contact"
     });
 }    
 
@@ -352,12 +368,28 @@ app.get("/assistance",(req, res)=>{
             html: predefinedMessages(body.nameOfTheUser,2,"",body.carPlate,body.message,body.carModel,body.carYear,body.problem,"","") ,
             replyTo: process.env.MAIL_FROM
         }
+        let mailOptionsSelf={
+            from: process.env.MAIL_FROM,
+            to: "yurajpawar99@gmail.com",
+            subject: "AutoDogg: Assistance Was Requested",
+            html: predefinedMessages(body.nameOfTheUser,6,"",body.carPlate,body.message,body.carModel,body.carYear,body.problem,"","") ,
+            replyTo: body.emailOfTheUser
+        }
+
+       
         //Send Email
         
         try{
         transporter.sendMail(mailOptions,(err,info)=>{
             if(!err){
-                console.log("Mail has been sent Successfully!");
+                console.log("Mail has been sent to the customer!");
+                transporter.sendMail(mailOptionsSelf,(err,info)=>{
+                    if(!err){
+                        console.log("Mail has been sent to the Admin!");
+                        
+                    }else{
+                        throw new Error("Could not send the email!");
+                    }});
             }else{
                 throw new Error("Could not send the email!");
             }});
@@ -394,7 +426,7 @@ app.post("/booking",auth,(req, res) =>{
     try{
 
         const body=req.body;
-        console.log(req.body);
+        //console.log(req.body);
         let tempName="";
 
         const authenticatedUser=(req.headers.cookie.split(";")[1]).split("=")[1];
@@ -409,10 +441,25 @@ app.post("/booking",auth,(req, res) =>{
                     subject: "AutoDogg: Slot Booked!",
                     html: predefinedMessages(tempName,3,body.slotDate,body.carPlate,body.message,body.carModel,body.carYear,body.problem,"","") ,
                     replyTo: process.env.MAIL_FROM
-                }
+                };
+                 const mailOptionsSelf={
+                    from: process.env.MAIL_FROM,
+                    to: "yurajpawar99@gmail.com",
+                    subject: "AutoDogg: A Slot Was Booked!",
+                    html: predefinedMessages(tempName,5,body.slotDate,body.carPlate,body.message,body.carModel,body.carYear,body.problem,"","") ,
+                    replyTo: data.email
+                };
+               
                 transporter.sendMail(mailOptions,(err,info)=>{
                     if(!err){
-                        console.log("Mail has been sent Successfully!");
+                        console.log("Mail has been sent to the customer!");
+                        transporter.sendMail(mailOptionsSelf,(err,info)=>{
+                            if(!err){
+                                console.log("Mail has been sent to the Admin!");
+                            }else{
+                                throw new Error("Could not send the email!");
+                            }
+                        });
                     }else{
                         throw new Error("Could not send the email!");
                     }
