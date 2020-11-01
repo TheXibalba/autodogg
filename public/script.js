@@ -39,7 +39,7 @@ window.addEventListener("resize",(e)=>{
    if(width <=990){
 const brandImgExpanded= document.getElementById("brandImgExpanded");
 const brandImgExpandedContainer= document.getElementById("brandImgExpandedContainer");
-console.log(width);
+
 brandImgExpandedContainer.style.display="none";
 brandImgExpanded.style.display="none";
 } 
