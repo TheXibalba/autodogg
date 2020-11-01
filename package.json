@@ -8,6 +8,7 @@
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
+    "googleapis": "^62.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.8",
     "nodemailer": "^6.4.14"

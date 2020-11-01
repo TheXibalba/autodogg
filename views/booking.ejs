@@ -9,7 +9,7 @@
        
             <div class="form-group d-flex flex-row justify-content-between">
                 <input type="text" class="form-control mr-1" name="carModel" id="carModel"
-                    placeholder="Car Model Name" >
+                    placeholder="Car Model Name" required>
                     <select name="carYear" id="carYear" class="dropdown form-control mr-1 pl-1 pr-4" >
                         
                         <%
@@ -34,7 +34,7 @@
                             </select>
                             
                         <input type="text" class="form-control mr-1 w-50" name="carPlate" id="carPlate"
-                            placeholder="Number Plate (MHxxAAxxxx)" >
+                            placeholder="Number Plate (MHxxAAxxxx)" required>
                             
 
                         </div>
@@ -46,7 +46,7 @@ const month=obj.getMonth()+1;
 const year=obj.getFullYear();
 %>
 
-<input name="slotDate" type="date"  min="<%=year%>-<%=month%>-<%=day%>" class="form-control" placeholder="date">
+<input name="slotDate" type="date"  min="<%=year%>-<%=month%>-<%=day%>" class="form-control" placeholder="date" required>
 
                             
                         </div>

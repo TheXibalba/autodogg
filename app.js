@@ -16,6 +16,9 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const predefinedMessages=require("./public/predefinedMessages");
 const nodeMailer = require("nodemailer");
+const {google}=require("googleapis");
+const OAuth2 = google.auth.OAuth2;
+
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + "/public"));
@@ -30,16 +33,30 @@ app.use(bodyParser.urlencoded({
 
     connection();
 
+    const oauth2Client = new OAuth2(
+        process.env.CLIENT_ID , //CLient ID
+        process.env.CLIENT_SECRET, // Client Secret
+        process.env.REDIRECT_URL // Redirect URL
+    );
 
-
-
-const transporter=
+    oauth2Client.setCredentials({
+        refresh_token: process.env.REFRESH_TOKEN
+    });
+    const accessToken = oauth2Client.getAccessToken();
+    const transporter=
     nodeMailer.createTransport({
-      service: "gmail",
-      auth:{
-          user: process.env.EMAIL_USERNAME,
-          pass: process.env.EMAIL_PASSWORD,
-      }
+        service: "gmail",
+        auth:{
+            type: "OAuth2",
+            user: process.env.EMAIL_USERNAME,
+            clientId: process.env.CLIENT_ID,
+            clientSecret:process.env.CLIENT_SECRET,
+            refreshToken: process.env.REFRESH_TOKEN,
+            accessToken: accessToken,
+            tls: {
+                rejectUnauthorized: false
+              }
+        }
   });
   
   
@@ -131,7 +148,14 @@ app.post("/signup", (req, res) => {
                             replyTo: process.env.MAIL_FROM
                         }
                         //Send Email
-                      transporter.sendMail(mailOptions);
+                      transporter.sendMail(mailOptions,(err,info)=>{
+                        if(!err){
+                            console.log("Mail has been sent Successfully!");
+                        }else{
+                            throw new Error("Could not send the email!");
+                        }
+                    }
+                        );
                         res.render("errorAndSuccessPage", {
                             authenticationIndicator: req.authenticated,
                             message: "Registered Successfully! Redirecting...",
@@ -281,7 +305,12 @@ app.post("/contact",(req, res)=>{
     //Send Email
     
     try{
-    transporter.sendMail(mailOptions);
+    transporter.sendMail(mailOptions,(err,info)=>{
+        if(!err){
+            console.log("Mail has been sent Successfully!");
+        }else{
+            throw new Error("Could not send the email!");
+        }});
     console.log(req.body);
     res.render("errorAndSuccessPage",{
         authenticationIndicator: req.authenticated,
@@ -326,8 +355,13 @@ app.get("/assistance",(req, res)=>{
         //Send Email
         
         try{
-        transporter.sendMail(mailOptions);
-        console.log(req.body);
+        transporter.sendMail(mailOptions,(err,info)=>{
+            if(!err){
+                console.log("Mail has been sent Successfully!");
+            }else{
+                throw new Error("Could not send the email!");
+            }});
+       // console.log(req.body);
         res.render("errorAndSuccessPage",{
             authenticationIndicator:req.authenticated,
             message: "Messsage Sent! Hang On, You Will Be Contacted Shortly...",
