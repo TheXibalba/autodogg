@@ -80,10 +80,9 @@ const predefinedMessages=(name,option,date,RCN,message,carModel,carYear,problem,
     break;
     case 7:
         return(`<h4>A customer has contacted</b></h4><br>
-        Patriculars:<br>
+        Particulars:<br>
         <ul> 
-        <li><b> Name: ${name}</b></li>
-        <li><b>Manufactured In Year: ${carYear}</b></li>
+        <li><b>Name: ${name}</b></li>
         <li><b>Contact Number: ${contact}</b></li>
         <li><b>Message: </b><em>${message}</em></li>
         </ul>
@@ -91,7 +90,7 @@ const predefinedMessages=(name,option,date,RCN,message,carModel,carYear,problem,
 
     break;
     default:
-        return("Oops! there was an error while processing your request. Please try again later.")    
+        return("Oops! there was an error while processing your request. Please try again later.")  ;  
     }
     
 

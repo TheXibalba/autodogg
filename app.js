@@ -18,6 +18,7 @@ const predefinedMessages=require("./public/predefinedMessages");
 const nodeMailer = require("nodemailer");
 const {google}=require("googleapis");
 const OAuth2 = google.auth.OAuth2;
+let mailList=[process.env.ADMIN_MAIL_ID_1,process.env.ADMIN_MAIL_ID_2]; 
 
 
 app.set('view engine', 'ejs');
@@ -304,7 +305,7 @@ app.post("/contact",(req, res)=>{
     };
     let mailOptionsSelf={
         from: process.env.MAIL_FROM,
-        to: "yurajpawar99@gmail.com",
+        to: mailList,
         subject: "AutoDogg: A Customer Contacted",
         html: predefinedMessages(body.nameOfTheUser,7,"","",body.message,"","","","","",body.contactOfTheUser),
         replyTo: body.emailOfTheUser
@@ -327,7 +328,7 @@ app.post("/contact",(req, res)=>{
         }else{
             throw new Error("Could not send the email!");
         }});
-    console.log(req.body);
+   // console.log(req.body);
     res.render("errorAndSuccessPage",{
         authenticationIndicator: req.authenticated,
         message: "Message Sent! Redirecting...",
@@ -370,7 +371,7 @@ app.get("/assistance",(req, res)=>{
         }
         let mailOptionsSelf={
             from: process.env.MAIL_FROM,
-            to: "yurajpawar99@gmail.com",
+            to: mailList,
             subject: "AutoDogg: Assistance Was Requested",
             html: predefinedMessages(body.nameOfTheUser,6,"",body.carPlate,body.message,body.carModel,body.carYear,body.problem,"","") ,
             replyTo: body.emailOfTheUser
@@ -444,7 +445,7 @@ app.post("/booking",auth,(req, res) =>{
                 };
                  const mailOptionsSelf={
                     from: process.env.MAIL_FROM,
-                    to: "yurajpawar99@gmail.com",
+                    to: mailList,
                     subject: "AutoDogg: A Slot Was Booked!",
                     html: predefinedMessages(tempName,5,body.slotDate,body.carPlate,body.message,body.carModel,body.carYear,body.problem,"","") ,
                     replyTo: data.email
