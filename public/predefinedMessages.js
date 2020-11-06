@@ -73,6 +73,7 @@ const predefinedMessages=(name,option,date,RCN,message,carModel,carYear,problem,
         <li><b>Manufactured In Year: ${carYear}</b></li>
         <li><b>Car Registration Number: ${RCN}</b></li>
         <li><b>Problem(s): ${problem}</b></li>
+        <li><b>Contact: ${contact}</b></li>
         <li><b>Addtional Information: </b><em>${message}</em></li>
         </ul>
         

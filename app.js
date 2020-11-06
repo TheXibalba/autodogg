@@ -376,11 +376,11 @@ app.get("/assistance",(req, res)=>{
             from: process.env.MAIL_FROM,
             to: mailList,
             subject: "AutoDogg: Assistance Was Requested",
-            html: predefinedMessages(body.nameOfTheUser,6,"",body.carPlate,body.message,body.carModel,body.carYear,body.problem,"","") ,
+            html: predefinedMessages(body.nameOfTheUser,6,"",body.carPlate,body.message,body.carModel,body.carYear,body.problem,"","",body.contactOfTheUser) ,
             replyTo: body.emailOfTheUser
         }
 
-       res.redirect("/assistance");
+       
         //Send Email
          
         try{
