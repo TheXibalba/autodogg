@@ -515,7 +515,7 @@ app.post("/checkoutPage",auth,(req, res)=>{
     const Amount=(body.totalAmt).slice((body.totalAmt).indexOf("_")+1);
     let partsCombo="";
     const objKeys=Object.keys(body);
-    
+    let i=1;
     for (const [key, value] of Object.entries(body)) {
         if(key.indexOf("_")>-1){
         const tempString =`${key}: ${value}`;
@@ -523,10 +523,11 @@ app.post("/checkoutPage",auth,(req, res)=>{
         const normalKey=key.replace("_"," ");
         const quantity=value.slice(0,1);
         const cost=value.slice(2);
-        partsCombo+=`Part: ${normalKey} Quantity: ${quantity} Cost: ₹${cost}`+"<br>";
-        
+        partsCombo+=`<b>${i}.</b> Part: ${normalKey} <b>;</b> Quantity: ${quantity} <b>;</b> Cost: ₹${cost} <b>;</b>`+"<br>";
+        i++;
       }
-    } partsCombo+=`Payable Amount:: ₹${Amount}`+"<br>";
+    } partsCombo+=`<b>Payable Amount::</b> ₹${Amount}`+"<br>";
+    i=0;
     console.log(partsCombo);
     let mailOptions={
         from: process.env.MAIL_FROM,

@@ -26,9 +26,7 @@ module.exports = (req, res, next) => {
       //console.log(error);
       req.authenticated = "FALSE";
 
-
-      if (req.url === "/" || req.url === "/login" || req.url==="/signup" || req.url==="/cart" || req.url==="/checkoutPage" 
-      || req.url==="/parts/*") {
+      if (req.url === "/" || req.url === "/login" || req.url==="/signup" || req.url==="/cart" || req.url==="/checkoutPage") {
 
          res.cookie("authCookie", "", {
             maxAge: 0

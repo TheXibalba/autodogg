@@ -118,11 +118,12 @@ border-radius: 0.8rem;
 
 #testimonials{
     opacity: 0.9;
+    width: 95%;
 }
 
 
   #testimonials .testimonial img {
-    width: 13rem;
+    width: 10rem;
     
 
  
