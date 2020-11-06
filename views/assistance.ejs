@@ -58,7 +58,7 @@
                 
                         </div>
                         <div class="form-group d-flex justify-content-center align-items-center">
-                            <input type="button" class="form-control btn btn-primary pr-2 pl-2 pb-1 pt-1"
+                            <input type="text" class="form-control btn btn-primary pr-2 pl-2 pb-1 pt-1"
                                 name="locationOfTheUser" id="locationOfTheUser" value="Get Your Current Location or Type it Below(Allow and wait for a Few Seconds.)">
                 
                         </div>
@@ -87,7 +87,7 @@ locationOfTheUser.addEventListener("click",(e)=>{
       
     let latitude=position.coords.latitude;
     let longitude=position.coords.longitude ;
-    locationOfTheUser.setAttribute("value",`Latitude: ${latitude} & Longitude: ${longitude}`);
+    locationOfTheUser.setAttribute("value",`${latitude} ${longitude}`);
     locationOfTheUser.setAttribute("disabled",true);
     locationOfTheUser.classList.replace("btn-primary","btn-success");
     locationOfTheUser.classList.replace("btn-warning","btn-success");
@@ -102,6 +102,8 @@ locationOfTheUser.addEventListener("click",(e)=>{
 
     });
 });
+
+
 
 </script>
 

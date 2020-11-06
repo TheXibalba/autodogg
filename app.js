@@ -363,6 +363,8 @@ app.get("/assistance",(req, res)=>{
     
     app.post("/assistance",(req, res)=>{
         const body=req.body;
+        console.log(body);
+        const url=`http://maps.google.com/maps?q=,`;
         let mailOptions={
             from: process.env.MAIL_FROM,
             to: body.emailOfTheUser,
@@ -378,9 +380,9 @@ app.get("/assistance",(req, res)=>{
             replyTo: body.emailOfTheUser
         }
 
-       
+       res.redirect("/assistance");
         //Send Email
-        
+/*         
         try{
         transporter.sendMail(mailOptions,(err,info)=>{
             if(!err){
@@ -410,7 +412,7 @@ app.get("/assistance",(req, res)=>{
         redirectToPage: "/assistance"
         });
     }    
-    
+     */
     
     
     });  
