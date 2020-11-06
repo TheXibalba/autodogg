@@ -266,7 +266,7 @@ app.get("/logout", (req, res) => {
     });
 });
 
- app.get("/parts/:brand",auth,(req,res)=>{
+ app.get("/parts/:brand",(req,res)=>{
     
      const brandName=(req.params.brand);   
  
