@@ -21,6 +21,9 @@ height: 100vh;
 .navbar{
     position: relative;
 }
+.cartContainer:hover{
+    cursor: pointer;
+}
 .brandImgCollapsed{
   display: inline-block;
     position: absolute;
@@ -97,6 +100,7 @@ height: 100vh;
 
 #errorMessage{
     margin: 15% auto;
+   
 }
 .partImage{
 width: 18rem;
@@ -124,7 +128,26 @@ border-radius: 0.8rem;
  
   }
 
- 
+.card{
+    max-width: 20%;
+    
+}
+.card img{
+    width: 11rem;
+    height: 10rem;
+    margin: 2% auto 0 auto;
+    padding-bottom: 1rem;
+    border-bottom: 0.1rem solid black;
+}
   .container-fluid{
       border-radius: 0.3rem !important ;
+  }
+
+
+  .deleteButton{
+      padding:0.1rem 0.3rem;
+  }
+  .deleteButton:hover{
+      cursor: pointer;
+      background-color: #29323c;
   }

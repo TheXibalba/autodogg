@@ -11,7 +11,8 @@ const saveNewUser = require("./public/saveNewUser");
 const auth = require("./public/auth");
 const jwt = require("jsonwebtoken");
 const app = express();
-const parts=require("./public/parts.js"); 
+//const parts=require("./public/parts.js"); 
+const partsTweaked=require("./public/partsTweaked.js"); 
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const predefinedMessages=require("./public/predefinedMessages");
@@ -19,7 +20,7 @@ const nodeMailer = require("nodemailer");
 const {google}=require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 let mailList=[process.env.ADMIN_MAIL_ID_1,process.env.ADMIN_MAIL_ID_2]; 
-
+const fs=require("fs");
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + "/public"));
@@ -32,7 +33,10 @@ app.use(bodyParser.urlencoded({
 
 //Connect to the Database and initialize nodemailer!
 
+
     connection();
+
+
 
     const oauth2Client = new OAuth2(
         process.env.CLIENT_ID , //CLient ID
@@ -53,11 +57,12 @@ app.use(bodyParser.urlencoded({
             clientId: process.env.CLIENT_ID,
             clientSecret:process.env.CLIENT_SECRET,
             refreshToken: process.env.REFRESH_TOKEN,
-            accessToken: accessToken,
-            tls: {
-                rejectUnauthorized: false
-              }
-        }
+            accessToken: accessToken
+            
+        },
+        tls: {
+            rejectUnauthorized: false
+          }
   });
   
   
@@ -253,40 +258,36 @@ app.post("/login", (req, res) => {
 
 
 app.get("/logout", (req, res) => {
-    res.clearCookie("authCookie").redirect("/");
+    res.clearCookie("authCookie").render("errorAndSuccessPage",{
+        authenticationIndicator: req.authenticated,
+        message: "Logged Out! Redirecting...",
+        color: "bg-warning",
+        redirectToPage: "/"
+    });
 });
 
-// app.get("/parts/:brand",(req,res)=>{
-
-
+ app.get("/parts/:brand",auth,(req,res)=>{
     
-    
-//     const brandName=(req.params.brand);   
-//     const tempImgPaths=parts[brandName].toyotaParts;
-    
-    
-//     brandsModel.findOne({name: brandName},(err,collection)=>{
-//         if(err){
-//             console.log(err);
-//         }else{
-//        /*    
-//             console.log(collection.parts);    */
-//         res.render("partsPage",{
-//         authenticationIndicator: req.authenticated,
-//         collection: collection.parts
+     const brandName=(req.params.brand);   
  
-//     });
+    
+    res.render("partsPage",{
+        authenticationIndicator: req.authenticated,
+        partsTweaked: partsTweaked,
+        brandName:brandName
+    });
+    
+
+     });
 
 
-                 
+app.get("/cart",auth,(req, res)=>{
+    res.render("viewCart",{
+        authenticationIndicator: req.authenticated
+    })
+});                 
  
-//         }
-//     });
- 
- 
-// //  console.log(parts[brandName].imgPath);
 
-// });
 
 app.get("/contact",(req, res)=>{
     res.render("contact",{
@@ -493,6 +494,92 @@ app.post("/booking",auth,(req, res) =>{
     }
 });
 
+app.get("/checkoutPage",auth,(req, res)=>{
+    res.render("checkoutPage",{
+        authenticationIndicator: req.authenticated,
+
+    });
+});
+
+
+
+app.post("/checkoutPage",auth,(req, res)=>{
+    const body=req.body;
+    const Name= body.nameOfTheUser;
+    const Email=body.emailOfTheUser;
+    const Contact=body.contactOfTheUser;
+    const State=body.state;
+    const Pincode=body.pincode;
+    const Address=body.address+`, ${State}, Pincode:${Pincode}`;
+    const message=body.message;
+    const Amount=(body.totalAmt).slice((body.totalAmt).indexOf("_")+1);
+    let partsCombo="";
+    const objKeys=Object.keys(body);
+    
+    for (const [key, value] of Object.entries(body)) {
+        if(key.indexOf("_")>-1){
+        const tempString =`${key}: ${value}`;
+        const normalValue=value.replace("_"," ");
+        const normalKey=key.replace("_"," ");
+        const quantity=value.slice(0,1);
+        const cost=value.slice(2);
+        partsCombo+=`Part: ${normalKey} Quantity: ${quantity} Cost: ₹${cost}`+"<br>";
+        
+      }
+    } partsCombo+=`Payable Amount:: ₹${Amount}`+"<br>";
+    console.log(partsCombo);
+    let mailOptions={
+        from: process.env.MAIL_FROM,
+        to: body.emailOfTheUser,
+        subject: "AutoDogg: Ordered Successfully!",
+        html: predefinedMessages(Name,8,"","","","","","","","","",partsCombo,Address),
+        replyTo: process.env.MAIL_FROM
+    };
+    let mailOptionsSelf={
+        from: process.env.MAIL_FROM,
+        to: mailList,
+        subject: "AutoDogg: Order Request",
+        html: predefinedMessages(Name,9,"","",body.message,"","","","","",body.contactOfTheUser,partsCombo,Address),
+        replyTo: body.emailOfTheUser
+    }
+    //Send Email
+    
+    try{
+    transporter.sendMail(mailOptions,(err,info)=>{
+        if(!err){
+            console.log("Mail has been sent to the customer!");
+            transporter.sendMail(mailOptionsSelf,(err,info)=>{
+                if(!err){
+                    console.log("Mail has been sent to the Admin!");
+                    
+        
+                }else{
+                    throw new Error("Could not send the email!");
+                }});
+
+        }else{
+            throw new Error("Could not send the email!");
+        }});
+   // console.log(req.body);
+    res.render("errorAndSuccessPage",{
+        authenticationIndicator: req.authenticated,
+        message: "Ordered Successfully! Redirecting...",
+        color: "bg-success",
+        redirectToPage: "/"
+    });
+}catch (error) {
+    res.render("errorAndSuccessPage",{
+        authenticationIndicator:req.authenticated,
+        message: "An Error Has Ocurred! Please Try Again Later...",
+    color: "bg-danger",
+    redirectToPage: "/cart"
+    });
+}    
+
+   
+});
+
+
 app.get("/*", (req, res) => {
     res.render("errorAndSuccessPage", {
         authenticationIndicator: req.authenticated,
@@ -506,6 +593,6 @@ app.get("/*", (req, res) => {
 
 
 app.listen(process.env.PORT || 3000, () => {
-    console.log("Server is running");
+    console.log("Server is running on: "+process.env.PORT);
     
 });

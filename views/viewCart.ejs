@@ -1,0 +1,116 @@
+<%- include("header.ejs") %>
+
+
+<h3 class="text-light text-center mt-1 pb-1">Order Details</h3>
+
+<div class="w-75 text-center mt-1 ml-auto mr-auto ">
+    <table class="table table-light table-striped table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Spare Part Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Cost</th>
+          </tr>
+        </thead>
+        <tbody id="cartTable">
+          
+        </tbody>
+      </table>
+
+  <button class="btn btn-warning " id="checkout" >Checkout</button>
+  <button class="btn btn-danger " id="clearCart" >Clear Cart</button>
+</div>
+
+
+
+<script>
+let localLength=localStorage.length;
+//console.log(localLength);
+
+if(localStorage.getItem("totalItems")==0){
+    window.location="/";
+}else{
+  
+  let tempTotal=0;
+  for(let i=0;i<localLength;i++){
+    const key=localStorage.key(i);
+  
+    const valueFull=localStorage.getItem(key);
+  const indexOfDash=valueFull.indexOf("-");
+  let quantity=Number(valueFull.slice(0,indexOfDash));
+  let correspondingCost=Number(valueFull.slice(valueFull.indexOf("-")+1));
+
+  if(key!="totalItems"){
+ // console.log(quantity,correspondingCost);
+  tempTotal+=correspondingCost;
+  generator(key,quantity,correspondingCost);
+}else{
+  continue;
+
+}
+
+
+
+}
+
+
+function generator(key,quantity,correspondingCost){
+  let tr=document.createElement("tr");
+  let cartTable=document.getElementById("cartTable");
+  
+ if((key!="TOTAL") && (key!="totalAmt") ){
+  tr.innerHTML=`<th scope="row"><i class="fa fa-trash-alt text-danger deleteButton" name="${key}"> </i></th>
+        <td>${key}</td>  
+        <td>${quantity}</td>
+        <td>₹${correspondingCost}</td>` ;
+
+        cartTable.appendChild(tr);
+ }else{
+
+
+
+
+
+  tr.innerHTML=`<th scope="row" class="bg-primary"><b>${key}</b></th>
+        <td class="bg-primary"></td>  
+        <td class="bg-primary" ><b>${quantity}</b></td>
+        <td class="bg-primary" ><b>₹${correspondingCost}</b></td>` ;
+
+        cartTable.appendChild(tr);
+
+ }
+}
+
+generator("TOTAL",localStorage.getItem("totalItems"),tempTotal);
+sessionStorage.setItem("totalAmt",tempTotal);
+
+
+}
+
+const deleteButtons=document.querySelectorAll(".deleteButton");
+deleteButtons.forEach((deleteButton)=>{
+    deleteButton.addEventListener("click",(e)=>{
+      const targetItem=localStorage.getItem(e.target.getAttribute("name"));
+      const correspondingKeyValue=Number(targetItem.slice(0,targetItem.indexOf("-")));
+      console.log(correspondingKeyValue);
+      localStorage.setItem("totalItems",localStorage.getItem("totalItems")-correspondingKeyValue);
+      localStorage.removeItem(e.target.getAttribute("name"));
+      window.location.reload();
+    });
+});
+
+const clearCart=document.getElementById("clearCart");
+clearCart.addEventListener("click",(e)=>{
+  localStorage.clear();
+  window.location="/";
+});
+
+const checkout=document.getElementById("checkout");
+checkout.addEventListener("click",(e)=>{
+  window.location="/checkoutPage";
+});
+
+</script>
+
+<%- include("footer.ejs") %>

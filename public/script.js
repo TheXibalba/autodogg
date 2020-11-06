@@ -1,4 +1,9 @@
 console.log("JS running!");
+
+
+
+const cartContainer= document.querySelectorAll(".cartContainer");
+
 const path = window.location.pathname;
 
     const width  = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
@@ -11,9 +16,17 @@ brandImgExpandedContainer.style.display="none";
 brandImgExpanded.style.display="none";
 } 
 
+cartContainer.forEach((element)=>{
+element.addEventListener("click",(e)=>{
+    sessionStorage.clear();
+    if(localStorage.getItem("totalItems")==0){
+        window.location="/";
+    }else{
+    window.location="/cart";
+    }
+});
 
-
-
+});
 
 if (path === "/signup") {
     const passwordOfTheUser = document.getElementById("passwordOfTheUser");
@@ -62,3 +75,25 @@ brandImgExpanded.style.display="none";
 });
 
 
+//Cart
+let totalItems= parseInt( localStorage.getItem("totalItems"));
+
+
+
+if(!totalItems){
+    localStorage.setItem("totalItems",0);
+    
+}
+   
+   
+function setCartSpan(){
+    let cartSpan=document.getElementById("cartSpan");
+cartSpan.textContent= localStorage.getItem("totalItems");
+} 
+ 
+ setCartSpan();
+
+
+
+
+ 

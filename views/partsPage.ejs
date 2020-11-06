@@ -1,19 +1,90 @@
 <%- include("header.ejs") %>
 
-<div class="row d-flex justify-content-center align-items-center mt-5" > 
-   <%collection.forEach((element,index)=>{ %>
-<% console.log(element.headlight.img) %>
-    <div class="col-lg-3 p-3 d-flex justify-content-around align-items-center mt-2">
+<h3 class="text-light text-center mt-1 pb-1">Generic Spare Parts For <%=brandName%> Motors</h3>
+<div class=" d-flex flex-row justify-content-around mt-2 bg-dark pb-3 pt-3">
+<%partsTweaked.forEach((element,index)=>{%>
+    
 
-        <img class="partImage" src=<%=  %> >
+<div class="card text-white ">
+    <div class="card-header bg-primary text-center"><%=element.name %></div>
+    <img class="card-img-top" src=<%=element.url%> alt=<%=element.className%> >
+    <div class="card-body">
+     
+      <p class="card-text text-dark">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
     </div>
-    
-    <%});%>
-    
-   </div>
+    <div class="card-footer bg-dark" >
+        <button class="btn btn-outline-success w-100 addButton" name="<%=brandName%>-<%=element.className%>" >
+
+            Add to Cart
+        </button>
+    </div>
+  </div>
+
+
+<%});%>
+
+</div>
+<div class="w-100 text-center mt-2">
+
+
+  <button class="btn btn-warning cartContainer">View Cart</button>
+</div>
+
+<script>
 
 
 
+const addButtons=document.querySelectorAll(".addButton");
+ let initialValue=1;
+ let tempTotal=0;
+ addButtons.forEach((addButton)=>{
+ 
+      addButton.addEventListener("click",(e)=>{
+        let nameOfTheElement=e.target.getAttribute("name");
+        
+        let price=0;
+        let partName=nameOfTheElement.slice(nameOfTheElement.indexOf("-")+1);
+        switch(partName){
+          case "headlight" :  
+          price=500;
+          
+          break;
+
+          case "oil" :
+            price=2500;
+            break;
+            case "sparkplug":
+              price=800;
+              break;
+            case "tyres":
+              price=1800;
+              break;
+        }
+
+
+
+        let tempVar=parseInt( localStorage.getItem(nameOfTheElement));
+      //  console.log(tempVar);
+         totalItems= parseInt( localStorage.getItem("totalItems"));
+         totalItems+=1;
+  localStorage.setItem("totalItems",totalItems);
+ 
+  if(tempVar){
+    let priceOfParts=price*(tempVar+1);
+    localStorage.setItem(nameOfTheElement,`${tempVar+1}`+"-"+`${priceOfParts}`);
+    tempTotal+=priceOfParts;
+  }
+  
+else{
+  let priceOfParts=price*initialValue;
+  localStorage.setItem(nameOfTheElement,`${initialValue}`+"-"+`${priceOfParts}`);
+  tempTotal+=priceOfParts;
+}
+  setCartSpan();
+         
+      });
+  });
+</script>
 
 <%- include("footer.ejs") %>
 

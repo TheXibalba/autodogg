@@ -1,0 +1,112 @@
+
+let totalAmt=0;
+
+let sessionLength=0;
+let localLength;
+
+if(localStorage.getItem("DONE")=="true"  ){
+    
+     sessionLength=sessionStorage.length;
+   
+
+
+
+    for(let i=0;i<sessionLength;i++){
+
+    
+let tempKey=sessionStorage.key(i);
+let tempValueFull=sessionStorage.getItem(sessionStorage.key( i ));
+let tempValue= parseInt(tempValueFull.slice(0,tempValueFull.indexOf(" ")));
+let tempCost=parseInt(tempValueFull.slice(tempValueFull.indexOf(" ")));
+
+
+
+if(tempKey==="totalItems" || tempKey==="totalAmt" || tempKey==="DONE" || tempKey===""){
+continue;
+}
+else{
+generator(tempKey,tempValue,tempCost);  
+
+}
+
+}
+
+function generator(name,quantity,cost){
+
+let tr=document.createElement("tr");
+
+if(name==="TOTAL"){
+    tr.innerHTML=`<th scope="row"><b>TOTAL</b></th>
+        <td></td>  
+        <td>${quantity}</td>
+        <td>Rs. ${cost}</td>` 
+}else{
+    tr.innerHTML=`<th scope="row"><i class="fa fa-trash-alt text-danger deleteButton" name="${name}"> </i></th>
+        <td>${name}</td>  
+        <td>${quantity}</td>
+        <td>Rs. ${cost}</td>` 
+}
+
+
+let cartTable=document.getElementById("cartTable");
+cartTable.appendChild(tr);
+
+}
+
+generator("TOTAL",sessionStorage.getItem("totalItems"),sessionStorage.getItem("totalAmt"));
+
+//Local Storage Generator
+}else{
+    
+    localLength=localStorage.length;
+ 
+
+for(let i=0;i<localLength;i++){
+
+    
+let tempKey=localStorage.key(i);
+let tempValue=localStorage.getItem(localStorage.key( i ));
+
+let nameOfThePart= tempKey.slice(tempKey.indexOf(" ")+1);
+// console.log(nameOfThePart);
+if(tempKey==="totalItems" || tempKey=="DONE" ){
+continue;
+}
+else{
+let rand= Math.floor(Math.random()*800)+600;
+totalAmt+=(rand*tempValue);
+
+
+    generator(tempKey,tempValue,rand*tempValue,true);  
+
+
+
+}
+
+}
+
+function generator(name,quantity,cost,totalVar){
+
+let tr=document.createElement("tr");
+let inner= totalVar? `<th scope="row"><i class="fa fa-trash-alt text-danger deleteButton" name="${name}"> </i></th>
+<td>${name}</td>`: `<th scope="row"><b>TOTAL</b></th><td></td>`;
+
+tr.innerHTML=`${inner}  
+        <td>${quantity}</td>
+        <td>Rs. ${cost}</td>` 
+
+let cartTable=document.getElementById("cartTable");
+cartTable.appendChild(tr);
+if(name!=="totalItems"){
+sessionStorage.setItem(name,`${quantity} ${cost}`);
+}
+
+}
+
+generator("",localStorage.getItem("totalItems"),totalAmt);
+sessionStorage.setItem("totalItems",localStorage.getItem("totalItems"));
+sessionStorage.setItem("totalAmt",totalAmt);
+
+
+
+}

@@ -1,4 +1,4 @@
-const predefinedMessages=(name,option,date,RCN,message,carModel,carYear,problem,email,pass,contact)=>{
+const predefinedMessages=(name,option,date,RCN,message,carModel,carYear,problem,email,pass,contact,longMessage,address)=>{
     switch(option){
         case 1:
 
@@ -89,6 +89,27 @@ const predefinedMessages=(name,option,date,RCN,message,carModel,carYear,problem,
         `);
 
     break;
+    case 8:
+        return(`<h4>Greetings ${name}!</h4><br>
+        Thank you for Ordering from us! Your order will be shipped within 24 hours.<br>
+        <b>Address: </b> <p>${address}</p><br>
+        <b>Order Particulars:</b> <br>
+        <br><p>${longMessage}</p> <br>
+        <br><b>Thank You for Choosing AutoDogg!</b>
+        `);
+
+        break;
+    case 9:
+        return(`<h4>Order Requested By: ${name}!</h4><br>
+        <b>Contact Number: ${contact}</b>
+        <b>Address: </b> <p>${address}</p> <br>
+        <b>Addtional Information: </b><em>${message}</em> <br>
+        <b>Order Particulars:</b> <br>
+        <br><p>${longMessage}</p> <br>
+        <br><b>Thank You for Choosing AutoDogg!</b>
+        `);
+
+        break;
     default:
         return("Oops! there was an error while processing your request. Please try again later.")  ;  
     }

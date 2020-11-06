@@ -2,13 +2,17 @@
 
 
 
-<div class="card <%=color%> d-flex justify-content-center align-items-center" id="errorMessage">
+<div class="<%=color%> d-flex justify-content-center align-items-center" id="errorMessage">
 
 
   <p class="h4 pt-2 pb-2"><%=message%></p>
 </div>
 
 <script>
+  if(window.location.pathname=="/checkoutPage" || window.location.pathname=="/logout"){
+  sessionStorage.clear();
+  localStorage.clear();
+  }
   setTimeout(function () {
     // Redirect after 3 seconds
     window.location = "<%=redirectToPage%>";
