@@ -20,7 +20,7 @@ const nodeMailer = require("nodemailer");
 const {google}=require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 let mailList=[process.env.ADMIN_MAIL_ID_1,process.env.ADMIN_MAIL_ID_2]; 
-const fs=require("fs");
+
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + "/public"));
@@ -363,7 +363,7 @@ app.get("/assistance",(req, res)=>{
     
     app.post("/assistance",(req, res)=>{
         const body=req.body;
-        console.log(body);
+        //console.log(body);
         const url=`http://maps.google.com/maps?q=,`;
         let mailOptions={
             from: process.env.MAIL_FROM,
@@ -382,7 +382,7 @@ app.get("/assistance",(req, res)=>{
 
        res.redirect("/assistance");
         //Send Email
-/*         
+         
         try{
         transporter.sendMail(mailOptions,(err,info)=>{
             if(!err){
@@ -412,7 +412,7 @@ app.get("/assistance",(req, res)=>{
         redirectToPage: "/assistance"
         });
     }    
-     */
+     
     
     
     });  
@@ -530,7 +530,7 @@ app.post("/checkoutPage",auth,(req, res)=>{
       }
     } partsCombo+=`<b>Payable Amount::</b> ₹${Amount}`+"<br>";
     i=0;
-    console.log(partsCombo);
+    //console.log(partsCombo);
     let mailOptions={
         from: process.env.MAIL_FROM,
         to: body.emailOfTheUser,
