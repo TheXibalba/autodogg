@@ -528,7 +528,7 @@ app.post("/checkoutPage",auth,(req, res)=>{
         partsCombo+=`<b>${i}.</b> Part: ${normalKey} <b>;</b> Quantity: ${quantity} <b>;</b> Cost: ₹${cost} <b>;</b>`+"<br>";
         i++;
       }
-    } partsCombo+=`<b>Payable Amount::</b> ₹${Amount}`+"<br>";
+    } partsCombo+=`<b><b>Payable Amount::</b> ₹${Amount}`+"<br>";
     i=0;
     //console.log(partsCombo);
     let mailOptions={
